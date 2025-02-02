@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.example.calculator.Domain.Entities.CalculatorAction
 import com.example.calculator.Domain.Entities.CalculatorOperation
 import com.example.calculator.Domain.Entities.CalculatorState
+import net.objecthunter.exp4j.ExpressionBuilder
 
 class CalculatorViewModel: ViewModel() {
     private var _state = mutableStateOf(CalculatorState())
@@ -26,17 +27,10 @@ class CalculatorViewModel: ViewModel() {
     }
 
     private fun performDeletion() {
-        when{
-            state.number2.isNotBlank() -> state = state.copy(
-                number2 = state.number2.dropLast(1)
-            )
-
-            state.operation != null -> state = state.copy(
-                operation = null
-            )
-
-            state.number1.isNotBlank() -> state = state.copy(
-                number1 = state.number1.dropLast(1)
+        if (state.expression.isNotBlank()) {
+            state = state.copy(
+                expression = state.expression.dropLast(1)
+                //Add check for operation here
             )
         }
 
@@ -47,75 +41,32 @@ class CalculatorViewModel: ViewModel() {
         val result = calculate() ?: return
 
         state = state.copy(
-            number1 = formatNumber(result.toString(), 15),
-            number2 = "",
+            expression = result,
             operation = null,
             tempResult = ""
         )
     }
 
     private fun enterOperation(operation: CalculatorOperation) {
-        if(state.number1.isNotBlank()){
-            state = state.copy(operation = operation)
+        if(state.expression.isNotBlank()){
+            state = state.copy(
+                operation = operation,
+                expression = state.expression + operation.symbol
+            )
 
             calculateTemporaryResult()
         }
     }
 
     private fun enterDecimal() {
-        if(state.operation == null
-           && !state.number1.contains(".")
-           && state.number1.isNotBlank())
-        {
-            state = state.copy(
-                number1 =  state.number1 + "."
-            )
-
-            return
-        }
-
-        if(!state.number2.contains(".")
-            && state.number2.isNotBlank())
-        {
-            state = state.copy(
-                number2 =  state.number2 + "."
-            )
-
-            return
-        }
+        state = state.copy(
+            expression = state.expression + "."
+        )
     }
 
     private fun enterNumber(number: Int) {
-        if(state.operation == null){
-            if(state.number1.length >= MAX_NUM_LENGTH){
-                return
-            }
-
-            if(state.number1.startsWith("0") && state.number1.length <= 1){
-                state = state.copy(
-                    number1 = ""
-                )
-            }
-
-            state = state.copy(
-                number1 = state.number1 + number
-            )
-
-            return
-        }
-
-        if(state.number2.length >= MAX_NUM_LENGTH){
-            return
-        }
-
-        if(state.number2.startsWith("0") && state.number2.length <= 1){
-            state = state.copy(
-                number2 = ""
-            )
-        }
-
         state = state.copy(
-            number2 = state.number2 + number
+            expression = state.expression + number.toString()
         )
 
         calculateTemporaryResult()
@@ -126,7 +77,7 @@ class CalculatorViewModel: ViewModel() {
 
         if(result != null){
             state = state.copy(
-                tempResult = formatNumber(result.toString(), 10)
+                tempResult = formatNumber(result, 10)
             )
         }
         else{
@@ -136,23 +87,28 @@ class CalculatorViewModel: ViewModel() {
         }
     }
 
-    private fun calculate(): Double?{
-        val number1 = state.number1.toDoubleOrNull()
-        val number2 = state.number2.toDoubleOrNull()
+    private fun calculate(): String?{
+        if (state.expression != ""){
+            var result = "";
 
-        if(number1 == null || number2 == null){
-            return null
+            try {
+                var expr = ExpressionBuilder(state.expression).build()
+                val res = expr.evaluate()
+                val longres = res.toLong()
+
+                if (longres.toDouble() == res) {
+                    result = longres.toString()
+                } else {
+                    result = res.toString()
+                }
+            } catch (e: Exception) {
+                result = "Error"
+            }
+
+            return result
         }
 
-        val result = when(state.operation){
-            is CalculatorOperation.Add -> number1 + number2
-            is CalculatorOperation.Subtract -> number1 - number2
-            is CalculatorOperation.Multiply -> number1 * number2
-            is CalculatorOperation.Divide -> number1 / number2
-            null -> return null
-        }
-
-        return result
+        return null
     }
 
     private fun formatNumber(number: String, len: Int): String{
