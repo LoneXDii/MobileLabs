@@ -23,6 +23,7 @@ class CalculatorViewModel: ViewModel() {
             is CalculatorAction.Operation -> enterOperation(action.operation)
             is CalculatorAction.Calculate -> performCalculation()
             is CalculatorAction.Delete -> performDeletion()
+            is CalculatorAction.Bracket -> performBracket(action.isOpen)
         }
     }
 
@@ -53,8 +54,6 @@ class CalculatorViewModel: ViewModel() {
                 operation = operation,
                 expression = state.expression + operation.symbol
             )
-
-            calculateTemporaryResult()
         }
     }
 
@@ -72,12 +71,24 @@ class CalculatorViewModel: ViewModel() {
         calculateTemporaryResult()
     }
 
+    private fun performBracket(isOpen: Boolean){
+        var bracket = if (isOpen) "(" else ")"
+
+        state = state.copy(
+            expression = state.expression + bracket
+        )
+
+        if(!isOpen){
+            calculateTemporaryResult()
+        }
+    }
+
     private fun calculateTemporaryResult(){
         var result = calculate()
 
         if(result != null){
             state = state.copy(
-                tempResult = formatNumber(result, 10)
+                tempResult = formatNumber(result, 20)
             )
         }
         else{

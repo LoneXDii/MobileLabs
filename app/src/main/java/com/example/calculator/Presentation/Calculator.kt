@@ -51,10 +51,10 @@ fun Calculator(
                         .fillMaxWidth()
                         .padding(vertical = 32.dp),
                     fontWeight = FontWeight.Light,
-                    fontSize = 35.sp,
-                    lineHeight = 40.sp,
+                    fontSize = 15.sp,
+                    lineHeight = 20.sp,
                     color = Color.White,
-                    maxLines = 3
+                    maxLines = 4
                 )
 
                 Text(
@@ -64,8 +64,8 @@ fun Calculator(
                         .fillMaxWidth()
                         .padding(vertical = 32.dp),
                     fontWeight = FontWeight.Light,
-                    fontSize = 55.sp,
-                    lineHeight = 65.sp,
+                    fontSize = 25.sp,
+                    lineHeight = 30.sp,
                     color = Color.White,
                     maxLines = 1
                 )
@@ -73,7 +73,8 @@ fun Calculator(
 
             val buttonRows = listOf(
                 listOf(
-                    ButtonConfig("AC", LightGray, 2f) { onAction(CalculatorAction.Clear) },
+                    ButtonConfig("(", Orange, 1f) { onAction(CalculatorAction.Bracket(true)) },
+                    ButtonConfig(")", Orange, 1f) { onAction(CalculatorAction.Bracket(false)) },
                     ButtonConfig("Del", LightGray, 1f) { onAction(CalculatorAction.Delete) },
                     ButtonConfig("/", Orange, 1f) { onAction(CalculatorAction.Operation(CalculatorOperation.Divide)) }
                 ),
@@ -96,7 +97,8 @@ fun Calculator(
                     ButtonConfig("+", Orange, 1f) { onAction(CalculatorAction.Operation(CalculatorOperation.Add)) }
                 ),
                 listOf(
-                    ButtonConfig("0", Color.DarkGray, 2f) { onAction(CalculatorAction.Number(0)) },
+                    ButtonConfig("AC", LightGray, 1f) { onAction(CalculatorAction.Clear) },
+                    ButtonConfig("0", Color.DarkGray, 1f) { onAction(CalculatorAction.Number(0)) },
                     ButtonConfig(".", Color.DarkGray, 1f) { onAction(CalculatorAction.Decimal) },
                     ButtonConfig("=", Orange, 1f) { onAction(CalculatorAction.Calculate) }
                 )
