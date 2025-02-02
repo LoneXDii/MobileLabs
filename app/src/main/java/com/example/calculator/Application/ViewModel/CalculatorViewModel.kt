@@ -58,12 +58,20 @@ class CalculatorViewModel: ViewModel() {
     }
 
     private fun enterDecimal() {
+        if(isAlreadyDecimal(state.expression)){
+            return
+        }
+
         state = state.copy(
             expression = state.expression + "."
         )
     }
 
     private fun enterNumber(number: Int) {
+        if(lengthOfLastDigitSegment(state.expression) >= MAX_NUM_LENGTH){
+            return
+        }
+
         state = state.copy(
             expression = state.expression + number.toString()
         )
@@ -135,7 +143,39 @@ class CalculatorViewModel: ViewModel() {
         return firstPart + "E" + parts[1]
     }
 
+    private fun lengthOfLastDigitSegment(s: String): Int {
+        if (s.isEmpty() || !s.last().isDigit()) return 0
+
+        var length = 0
+        for (i in s.length - 1 downTo 0) {
+            if (s[i].isDigit()) {
+                length++
+            } else {
+                break
+            }
+        }
+        return length
+    }
+
+    private fun isAlreadyDecimal(s: String): Boolean{
+        if (s.isEmpty() || !s.last().isDigit())
+            return true
+
+        var dots = 0
+        for (i in s.length - 1 downTo 0) {
+            if (s[i].isDigit()) {
+                continue
+            } else if(s[i] == '.') {
+                return true
+            } else {
+                break
+            }
+        }
+
+        return false
+    }
+
     companion object {
-        private const val MAX_NUM_LENGTH = 8
+        private const val MAX_NUM_LENGTH = 15
     }
 }
