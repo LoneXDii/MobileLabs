@@ -3,9 +3,13 @@ package com.example.calculator.Application.ViewModel
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.calculator.Domain.Entities.CalculatorAction
+import com.example.calculator.Domain.Entities.CalculatorConstants
 import com.example.calculator.Domain.Entities.CalculatorOperation
+import com.example.calculator.Domain.Entities.CalculatorScientificOperation
 import com.example.calculator.Domain.Entities.CalculatorState
 import net.objecthunter.exp4j.ExpressionBuilder
+import net.objecthunter.exp4j.function.Function
+import kotlin.math.ln
 
 class CalculatorViewModel: ViewModel() {
     private var _state = mutableStateOf(CalculatorState())
@@ -23,8 +27,30 @@ class CalculatorViewModel: ViewModel() {
             is CalculatorAction.Operation -> enterOperation(action.operation)
             is CalculatorAction.Calculate -> performCalculation()
             is CalculatorAction.Delete -> performDeletion()
-            is CalculatorAction.Bracket -> performBracket(action.isOpen)
+            is CalculatorAction.Bracket -> enterBracket(action.isOpen)
+            is CalculatorAction.ScientificOperation -> enterScientificOperation(action.operation)
+            is CalculatorAction.Constant -> enterConstant(action.value)
         }
+    }
+
+    private fun enterConstant(constant: CalculatorConstants) {
+        if(!isValidLength()) return
+
+        if(state.expression.isBlank()){
+            state = state.copy(
+                expression = state.expression + constant.value
+            )
+        }
+        else{
+            if(state.expression.last().isDigit() || state.expression.last() == '.')
+                return
+
+            state = state.copy(
+                expression = state.expression + constant.value
+            )
+        }
+
+        calculateTemporaryResult()
     }
 
     private fun performDeletion() {
@@ -46,8 +72,16 @@ class CalculatorViewModel: ViewModel() {
         )
     }
 
+    private fun enterScientificOperation(operation: CalculatorScientificOperation) {
+        if(!isValidLength()) return
+
+        state = state.copy(
+            expression = state.expression + operation.symbol
+        )
+    }
+
     private fun enterOperation(operation: CalculatorOperation) {
-        if(!isValidLength() || !canEnterOperation()) return
+        if(state.expression.isBlank() || !isValidLength() || !canEnterOperation()) return
 
         if(state.expression.last() == '(' && operation.symbol != CalculatorOperation.Subtract.symbol)
             return
@@ -85,7 +119,7 @@ class CalculatorViewModel: ViewModel() {
         calculateTemporaryResult()
     }
 
-    private fun performBracket(isOpen: Boolean){
+    private fun enterBracket(isOpen: Boolean){
         if(!isValidLength()) return
 
         val bracket = if (isOpen) "(" else ")"
@@ -116,7 +150,13 @@ class CalculatorViewModel: ViewModel() {
     private fun calculate(): String?{
         if (state.expression != ""){
             val result: String = try {
-                val expr = ExpressionBuilder(state.expression).build()
+                val expr = ExpressionBuilder(state.expression)
+                    .function(object : Function("ln", 1) {
+                        override fun apply(vararg args: Double): Double {
+                            return ln(args[0])
+                        }
+                    })
+                    .build()
                 val res = expr.evaluate()
                 val longres = res.toLong()
 

@@ -9,13 +9,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
 
 @Composable
 fun CalculatorButton(
     symbol: String,
     modifier: Modifier,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    fontSize: TextUnit = 36.sp
 ) {
     Box(
         contentAlignment = Alignment.Center,
@@ -26,7 +28,7 @@ fun CalculatorButton(
     ){
         Text(
             text = symbol,
-            fontSize = 36.sp,
+            fontSize = fontSize,
             color = Color.White
         )
     }
