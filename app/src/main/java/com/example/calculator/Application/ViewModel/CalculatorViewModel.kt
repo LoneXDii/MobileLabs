@@ -31,7 +31,6 @@ class CalculatorViewModel: ViewModel() {
         if (state.expression.isNotBlank()) {
             state = state.copy(
                 expression = state.expression.dropLast(1)
-                //Add check for operation here
             )
         }
 
@@ -43,21 +42,26 @@ class CalculatorViewModel: ViewModel() {
 
         state = state.copy(
             expression = result,
-            operation = null,
             tempResult = ""
         )
     }
 
     private fun enterOperation(operation: CalculatorOperation) {
+        if(!isValidLength() || !canEnterOperation()) return
+
+        if(state.expression.last() == '(' && operation.symbol != CalculatorOperation.Subtract.symbol)
+            return
+
         if(state.expression.isNotBlank()){
             state = state.copy(
-                operation = operation,
                 expression = state.expression + operation.symbol
             )
         }
     }
 
     private fun enterDecimal() {
+        if(!isValidLength()) return
+
         if(isAlreadyDecimal(state.expression)){
             return
         }
@@ -68,6 +72,8 @@ class CalculatorViewModel: ViewModel() {
     }
 
     private fun enterNumber(number: Int) {
+        if(!isValidLength()) return
+
         if(lengthOfLastDigitSegment(state.expression) >= MAX_NUM_LENGTH){
             return
         }
@@ -80,7 +86,9 @@ class CalculatorViewModel: ViewModel() {
     }
 
     private fun performBracket(isOpen: Boolean){
-        var bracket = if (isOpen) "(" else ")"
+        if(!isValidLength()) return
+
+        val bracket = if (isOpen) "(" else ")"
 
         state = state.copy(
             expression = state.expression + bracket
@@ -92,15 +100,14 @@ class CalculatorViewModel: ViewModel() {
     }
 
     private fun calculateTemporaryResult(){
-        var result = calculate()
+        val result = calculate()
 
-        if(result != null){
-            state = state.copy(
+        state = if(result != null){
+            state.copy(
                 tempResult = formatNumber(result, 20)
             )
-        }
-        else{
-            state = state.copy(
+        } else{
+            state.copy(
                 tempResult = ""
             )
         }
@@ -108,20 +115,18 @@ class CalculatorViewModel: ViewModel() {
 
     private fun calculate(): String?{
         if (state.expression != ""){
-            var result = "";
-
-            try {
-                var expr = ExpressionBuilder(state.expression).build()
+            val result: String = try {
+                val expr = ExpressionBuilder(state.expression).build()
                 val res = expr.evaluate()
                 val longres = res.toLong()
 
                 if (longres.toDouble() == res) {
-                    result = longres.toString()
+                    longres.toString()
                 } else {
-                    result = res.toString()
+                    res.toString()
                 }
             } catch (e: Exception) {
-                result = "Error"
+                "Error"
             }
 
             return result
@@ -150,9 +155,7 @@ class CalculatorViewModel: ViewModel() {
         for (i in s.length - 1 downTo 0) {
             if (s[i].isDigit()) {
                 length++
-            } else {
-                break
-            }
+            } else break
         }
         return length
     }
@@ -161,7 +164,6 @@ class CalculatorViewModel: ViewModel() {
         if (s.isEmpty() || !s.last().isDigit())
             return true
 
-        var dots = 0
         for (i in s.length - 1 downTo 0) {
             if (s[i].isDigit()) {
                 continue
@@ -175,7 +177,22 @@ class CalculatorViewModel: ViewModel() {
         return false
     }
 
+    private fun isValidLength(): Boolean{
+        return state.expression.length < MAX_EXPRESSION_LENGTH
+    }
+
+    private fun canEnterOperation(): Boolean{
+        if(state.expression.last().isDigit()
+            || state.expression.last() == ')'
+            || state.expression.last() == '('){
+            return true
+        }
+
+        return false
+    }
+
     companion object {
         private const val MAX_NUM_LENGTH = 15
+        private const val MAX_EXPRESSION_LENGTH = 55
     }
 }
