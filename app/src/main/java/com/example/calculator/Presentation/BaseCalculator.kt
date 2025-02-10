@@ -11,8 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,7 +20,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.calculator.Domain.Entities.CalculatorAction
 import com.example.calculator.Domain.Entities.CalculatorOperation
 import com.example.calculator.Domain.Entities.CalculatorState
@@ -36,8 +33,7 @@ fun BaseCalculator(
     buttonSpacing: Dp = 8.dp,
     onAction: (CalculatorAction) -> Unit
 ) {
-   var isSwiping = false;
-
+    var isSwiping = false;
     Box(
         modifier = modifier
             .pointerInput(Unit){

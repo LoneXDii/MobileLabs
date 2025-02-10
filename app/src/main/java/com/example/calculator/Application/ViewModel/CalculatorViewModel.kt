@@ -1,5 +1,9 @@
 package com.example.calculator.Application.ViewModel
 
+import android.os.Build
+import android.os.VibrationEffect
+import android.os.Vibrator
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.calculator.Domain.Entities.CalculatorAction
@@ -11,7 +15,7 @@ import net.objecthunter.exp4j.ExpressionBuilder
 import net.objecthunter.exp4j.function.Function
 import kotlin.math.ln
 
-class CalculatorViewModel: ViewModel() {
+class CalculatorViewModel(private val vibrator: Vibrator): ViewModel() {
     private var _state = mutableStateOf(CalculatorState())
     var state: CalculatorState
         get() = _state.value
@@ -19,7 +23,9 @@ class CalculatorViewModel: ViewModel() {
             _state.value = value
         }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun onAction(action: CalculatorAction){
+        vibrate()
         when(action){
             is CalculatorAction.Number -> enterNumber(action.number)
             is CalculatorAction.Decimal -> enterDecimal()
@@ -30,6 +36,13 @@ class CalculatorViewModel: ViewModel() {
             is CalculatorAction.Bracket -> enterBracket(action.isOpen)
             is CalculatorAction.ScientificOperation -> enterScientificOperation(action.operation)
             is CalculatorAction.Constant -> enterConstant(action.value)
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun vibrate() {
+        if (vibrator.hasVibrator()) {
+            vibrator.vibrate(VibrationEffect.createOneShot(15, 75))
         }
     }
 
