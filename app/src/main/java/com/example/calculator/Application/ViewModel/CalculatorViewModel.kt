@@ -15,7 +15,9 @@ import net.objecthunter.exp4j.ExpressionBuilder
 import net.objecthunter.exp4j.function.Function
 import kotlin.math.ln
 
-class CalculatorViewModel(private val vibrator: Vibrator): ViewModel() {
+class CalculatorViewModel(
+    private val vibrator: Vibrator
+): ViewModel() {
     private var _state = mutableStateOf(CalculatorState())
     var state: CalculatorState
         get() = _state.value

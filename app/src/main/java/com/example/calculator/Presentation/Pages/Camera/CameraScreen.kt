@@ -30,7 +30,9 @@ import com.example.calculator.Application.ViewModel.CalculatorViewModel
 import com.example.calculator.Presentation.Pages.Camera.Components.RequestCameraPermission
 
 @Composable
-fun CameraScreen(viewModel: CalculatorViewModel) {
+fun CameraScreen(
+    viewModel: CalculatorViewModel
+) {
     val context = LocalContext.current
     val textRecognizer = remember { TextRecognizer(context) }
 

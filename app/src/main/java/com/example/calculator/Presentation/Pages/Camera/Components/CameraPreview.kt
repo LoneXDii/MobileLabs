@@ -9,7 +9,10 @@ import androidx.compose.ui.viewinterop.AndroidView
 
 
 @Composable
-fun CameraPreview(preview: Preview, modifier: Modifier = Modifier) {
+fun CameraPreview(
+    preview: Preview,
+    modifier: Modifier = Modifier
+) {
     val context = LocalContext.current
     val previewView = remember {
         PreviewView(context)
