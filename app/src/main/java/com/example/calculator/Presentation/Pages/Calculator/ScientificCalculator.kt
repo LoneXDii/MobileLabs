@@ -91,7 +91,7 @@ fun ScientificCalculator(
                         .fillMaxWidth()
                         .padding(vertical = 0.dp),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween // Распределяем пространство между элементами
+                    horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     IconButton(
                         onClick = onCameraButton,
@@ -109,8 +109,8 @@ fun ScientificCalculator(
                         text = state.tempResult,
                         textAlign = TextAlign.End,
                         modifier = Modifier
-                            .weight(1f) // Позволяет тексту занимать оставшееся пространство
-                            .padding(start = 8.dp), // Добавляем отступ слева для текста
+                            .weight(1f)
+                            .padding(start = 8.dp),
                         fontWeight = FontWeight.Light,
                         fontSize = 20.sp,
                         lineHeight = 25.sp,
