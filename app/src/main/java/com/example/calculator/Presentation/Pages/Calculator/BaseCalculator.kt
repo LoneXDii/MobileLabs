@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Camera
 import androidx.compose.material3.Icon
@@ -60,18 +61,29 @@ fun BaseCalculator(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .align(Alignment.BottomCenter),
-            verticalArrangement = Arrangement.spacedBy(buttonSpacing)
-        ) {
+                .align(Alignment.TopCenter)
+                .padding(2.dp),
+            horizontalAlignment = Alignment.End
+        ){
             IconButton(
-                onClick = onCameraButton,
-                modifier = Modifier.padding(16.dp)
+                onClick = onCameraButton
             ) {
                 Icon(
                     imageVector = Icons.Default.Camera,
-                    contentDescription = "Open Camera"
+                    contentDescription = "Open Camera",
+                    tint = Color.White,
+                    modifier = Modifier
+                        .padding(2.dp)
+                        .size(36.dp)
                 )
             }
+        }
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.BottomCenter),
+            verticalArrangement = Arrangement.spacedBy(buttonSpacing)
+        ) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -83,7 +95,7 @@ fun BaseCalculator(
                     textAlign = TextAlign.End,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 32.dp),
+                        .padding(vertical = 30.dp),
                     fontWeight = FontWeight.Light,
                     fontSize = 35.sp,
                     lineHeight = 40.sp,
@@ -96,7 +108,7 @@ fun BaseCalculator(
                     textAlign = TextAlign.End,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 32.dp),
+                        .padding(vertical = 30.dp),
                     fontWeight = FontWeight.Light,
                     fontSize = 25.sp,
                     lineHeight = 30.sp,

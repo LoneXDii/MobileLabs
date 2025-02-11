@@ -78,7 +78,7 @@ fun CameraScreen(viewModel: CalculatorViewModel) {
             },
             modifier = Modifier
                 .align(Alignment.TopEnd)
-                .padding(horizontal = 0.dp, vertical = 16.dp)
+                .padding(horizontal = 16.dp, vertical = 16.dp)
         ) {
             Icon(
                 imageVector = Icons.Default.Close,
