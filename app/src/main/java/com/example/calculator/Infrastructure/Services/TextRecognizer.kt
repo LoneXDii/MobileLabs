@@ -37,8 +37,8 @@ class TextRecognizer(private val context: Context) {
 
     private fun recognizeTextFromImage(
         file: File,
-        viewModel: CalculatorViewModel)
-    {
+        viewModel: CalculatorViewModel
+    ) {
         val image = InputImage.fromFilePath(context, file.toUri())
         val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
 

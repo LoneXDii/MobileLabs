@@ -33,7 +33,9 @@ class CalculatorViewModel(
         }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun onAction(action: CalculatorAction){
+    fun onAction(
+        action: CalculatorAction
+    ){
         vibrate()
         when(action){
             is CalculatorAction.Number -> enterNumber(action.number)
@@ -48,10 +50,13 @@ class CalculatorViewModel(
         }
     }
 
-    fun setExpression(expr: String){
+    fun setExpression(
+        expr: String
+    ){
         state = state.copy(
             expression = expr
         )
+
         calculateTemporaryResult()
     }
 
@@ -62,7 +67,9 @@ class CalculatorViewModel(
         }
     }
 
-    private fun enterConstant(constant: CalculatorConstants) {
+    private fun enterConstant(
+        constant: CalculatorConstants
+    ) {
         if(!isValidLength()) return
 
         if(state.expression.isBlank()){
@@ -101,7 +108,9 @@ class CalculatorViewModel(
         )
     }
 
-    private fun enterScientificOperation(operation: CalculatorScientificOperation) {
+    private fun enterScientificOperation(
+        operation: CalculatorScientificOperation
+    ) {
         if(!isValidLength()) return
 
         state = state.copy(
@@ -109,7 +118,9 @@ class CalculatorViewModel(
         )
     }
 
-    private fun enterOperation(operation: CalculatorOperation) {
+    private fun enterOperation(
+        operation: CalculatorOperation
+    ) {
         if(state.expression.isBlank() || !isValidLength() || !canEnterOperation()) return
 
         if(state.expression.last() == '(' && operation.symbol != CalculatorOperation.Subtract.symbol)
@@ -134,7 +145,9 @@ class CalculatorViewModel(
         )
     }
 
-    private fun enterNumber(number: Int) {
+    private fun enterNumber(
+        number: Int
+    ) {
         if(!isValidLength()) return
 
         if(lengthOfLastDigitSegment(state.expression) >= MAX_NUM_LENGTH){
@@ -148,7 +161,9 @@ class CalculatorViewModel(
         calculateTemporaryResult()
     }
 
-    private fun enterBracket(isOpen: Boolean){
+    private fun enterBracket(
+        isOpen: Boolean
+    ){
         if(!isValidLength()) return
 
         val bracket = if (isOpen) "(" else ")"
@@ -204,7 +219,10 @@ class CalculatorViewModel(
         return null
     }
 
-    private fun formatNumber(number: String, len: Int): String{
+    private fun formatNumber(
+        number: String,
+        len: Int
+    ): String{
         val parts = number.split("E")
 
         if(parts.size < 2){
@@ -217,7 +235,9 @@ class CalculatorViewModel(
         return firstPart + "E" + parts[1]
     }
 
-    private fun lengthOfLastDigitSegment(s: String): Int {
+    private fun lengthOfLastDigitSegment(
+        s: String
+    ): Int {
         if (s.isEmpty() || !s.last().isDigit()) return 0
 
         var length = 0
@@ -229,7 +249,9 @@ class CalculatorViewModel(
         return length
     }
 
-    private fun isAlreadyDecimal(s: String): Boolean{
+    private fun isAlreadyDecimal(
+        s: String
+    ): Boolean{
         if (s.isEmpty() || !s.last().isDigit())
             return true
 

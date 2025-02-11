@@ -32,16 +32,14 @@ class MainActivity : ComponentActivity() {
                 val vibrator = vibratorManager.defaultVibrator
 
                 val viewModel: CalculatorViewModel = viewModel(factory = CalculatorViewModelFactory(vibrator))
-                val state = viewModel.state
 
                 CalculatorApp(
-                    state = state,
+                    viewModel = viewModel,
                     buttonSpacing = buttonSpacing,
                     modifier = Modifier
                         .fillMaxSize()
                         .background(MediumGray)
                         .padding(16.dp),
-                    viewModel = viewModel
                 )
             }
         }

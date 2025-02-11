@@ -17,10 +17,9 @@ import com.example.calculator.Presentation.Pages.Camera.CameraScreen
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun CalculatorApp(
-    state: CalculatorState,
+    viewModel: CalculatorViewModel,
     modifier: Modifier = Modifier,
-    buttonSpacing: Dp = 8.dp,
-    viewModel: CalculatorViewModel
+    buttonSpacing: Dp = 8.dp
 ) {
     val configuration = LocalConfiguration.current
 
@@ -30,7 +29,7 @@ fun CalculatorApp(
     else {
         if (configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
             BaseCalculator(
-                state = state,
+                state = viewModel.state,
                 onAction = viewModel::onAction,
                 buttonSpacing = buttonSpacing,
                 modifier = modifier,
@@ -38,7 +37,7 @@ fun CalculatorApp(
             )
         } else {
             ScientificCalculator(
-                state = state,
+                state = viewModel.state,
                 onAction = viewModel::onAction,
                 buttonSpacing = buttonSpacing,
                 modifier = modifier,
