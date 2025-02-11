@@ -63,6 +63,14 @@ fun CameraScreen(viewModel: CalculatorViewModel) {
         ) {
             Text("Capture and Recognize")
         }
+        Button(
+            onClick = {
+                viewModel.isCameraOpen = false
+            },
+            modifier = Modifier.align(Alignment.BottomCenter)
+        ){
+            Text("Close")
+        }
     }
 }
 

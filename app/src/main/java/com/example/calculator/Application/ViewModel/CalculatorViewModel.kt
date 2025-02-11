@@ -23,7 +23,7 @@ class CalculatorViewModel(private val vibrator: Vibrator): ViewModel() {
             _state.value = value
         }
 
-    private val _isCameraOpen = mutableStateOf(true)
+    private val _isCameraOpen = mutableStateOf(false)
     var isCameraOpen: Boolean
         get() = _isCameraOpen.value
         set(value) {

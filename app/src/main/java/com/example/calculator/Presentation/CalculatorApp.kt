@@ -30,14 +30,16 @@ fun CalculatorApp(
                 state = state,
                 onAction = viewModel::onAction,
                 buttonSpacing = buttonSpacing,
-                modifier = modifier
+                modifier = modifier,
+                onCameraButton = { viewModel.isCameraOpen = true }
             )
         } else {
             ScientificCalculator(
                 state = state,
                 onAction = viewModel::onAction,
                 buttonSpacing = buttonSpacing,
-                modifier = modifier
+                modifier = modifier,
+                onCameraButton = { viewModel.isCameraOpen = true }
             )
         }
     }
