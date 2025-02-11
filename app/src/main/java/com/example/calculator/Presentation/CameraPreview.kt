@@ -12,8 +12,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 fun CameraPreview(preview: Preview, modifier: Modifier = Modifier) {
     val context = LocalContext.current
     val previewView = remember {
-        PreviewView(context).apply {
-        }
+        PreviewView(context)
     }
 
     LaunchedEffect(preview) {
