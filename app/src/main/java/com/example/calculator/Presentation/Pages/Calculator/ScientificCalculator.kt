@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Camera
 import androidx.compose.material3.Icon
@@ -29,6 +30,7 @@ import com.example.calculator.Domain.Entities.CalculatorConstants
 import com.example.calculator.Domain.Entities.CalculatorOperation
 import com.example.calculator.Domain.Entities.CalculatorScientificOperation
 import com.example.calculator.Domain.Entities.CalculatorState
+import com.example.calculator.Presentation.Pages.Calculator.Components.ButtonConfig
 import com.example.calculator.Presentation.Pages.Calculator.Components.CalculatorButton
 import com.example.calculator.ui.theme.LightGray
 import com.example.calculator.ui.theme.Orange
@@ -65,16 +67,6 @@ fun ScientificCalculator(
                 .align(Alignment.BottomCenter),
             verticalArrangement = Arrangement.spacedBy(buttonSpacing)
         ) {
-            IconButton(
-                onClick = onCameraButton,
-                modifier = Modifier.padding(16.dp)
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Camera,
-                    contentDescription = "Open Camera"
-                )
-            }
-
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -88,25 +80,46 @@ fun ScientificCalculator(
                         .fillMaxWidth()
                         .padding(vertical = 8.dp),
                     fontWeight = FontWeight.Light,
-                    fontSize = 30.sp,
-                    lineHeight = 35.sp,
+                    fontSize = 25.sp,
+                    lineHeight = 30.sp,
                     color = Color.White,
                     maxLines = 2
                 )
 
-                Text(
-                    text = state.tempResult,
-                    textAlign = TextAlign.End,
+                Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 8.dp),
-                    fontWeight = FontWeight.Light,
-                    fontSize = 20.sp,
-                    lineHeight = 25.sp,
-                    color = Color.White,
-                    maxLines = 1
-                )
+                        .padding(vertical = 0.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween // Распределяем пространство между элементами
+                ) {
+                    IconButton(
+                        onClick = onCameraButton,
+                        modifier = Modifier.padding(0.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Camera,
+                            contentDescription = "Open Camera",
+                            tint = Color.White,
+                            modifier = Modifier.size(25.dp)
+                        )
+                    }
+
+                    Text(
+                        text = state.tempResult,
+                        textAlign = TextAlign.End,
+                        modifier = Modifier
+                            .weight(1f) // Позволяет тексту занимать оставшееся пространство
+                            .padding(start = 8.dp), // Добавляем отступ слева для текста
+                        fontWeight = FontWeight.Light,
+                        fontSize = 20.sp,
+                        lineHeight = 25.sp,
+                        color = Color.White,
+                        maxLines = 1
+                    )
+                }
             }
+
 
             val buttonRows = listOf(
                 listOf(

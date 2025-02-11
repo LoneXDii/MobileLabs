@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.sp
 import com.example.calculator.Domain.Entities.CalculatorAction
 import com.example.calculator.Domain.Entities.CalculatorOperation
 import com.example.calculator.Domain.Entities.CalculatorState
+import com.example.calculator.Presentation.Pages.Calculator.Components.ButtonConfig
 import com.example.calculator.Presentation.Pages.Calculator.Components.CalculatorButton
 import com.example.calculator.ui.theme.LightGray
 import com.example.calculator.ui.theme.Orange
@@ -171,9 +172,3 @@ fun BaseCalculator(
     }
 }
 
-data class ButtonConfig(
-    val symbol: String,
-    val backgroundColor: Color,
-    val aspectRatio: Float,
-    val onClick: () -> Unit
-)
