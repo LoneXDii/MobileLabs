@@ -39,6 +39,13 @@ class CalculatorViewModel(private val vibrator: Vibrator): ViewModel() {
         }
     }
 
+    fun setExpression(expr: String){
+        state = state.copy(
+            expression = expr
+        )
+        calculateTemporaryResult()
+    }
+
     @RequiresApi(Build.VERSION_CODES.O)
     private fun vibrate() {
         if (vibrator.hasVibrator()) {
