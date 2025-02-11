@@ -23,6 +23,13 @@ class CalculatorViewModel(private val vibrator: Vibrator): ViewModel() {
             _state.value = value
         }
 
+    private val _isCameraOpen = mutableStateOf(true)
+    var isCameraOpen: Boolean
+        get() = _isCameraOpen.value
+        set(value) {
+            _isCameraOpen.value = value
+        }
+
     @RequiresApi(Build.VERSION_CODES.O)
     fun onAction(action: CalculatorAction){
         vibrate()

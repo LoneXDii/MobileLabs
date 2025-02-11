@@ -25,7 +25,7 @@ import com.example.calculator.Application.Services.TextRecognizer
 import com.example.calculator.Application.ViewModel.CalculatorViewModel
 
 @Composable
-fun CameraScreen(viewModel: CalculatorViewModel, onCameraClosed: () -> Unit) {
+fun CameraScreen(viewModel: CalculatorViewModel) {
     val context = LocalContext.current
     val textRecognizer = remember { TextRecognizer(context) }
 
@@ -57,7 +57,7 @@ fun CameraScreen(viewModel: CalculatorViewModel, onCameraClosed: () -> Unit) {
         CameraPreview(preview, Modifier.fillMaxSize())
         Button(
             onClick = {
-                textRecognizer.takePhotoAndRecognizeText(imageCapture,viewModel, onCameraClosed)
+                textRecognizer.takePhotoAndRecognizeText(imageCapture, viewModel)
             },
             modifier = Modifier.align(Alignment.BottomCenter)
         ) {

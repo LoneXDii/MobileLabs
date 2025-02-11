@@ -16,8 +16,7 @@ class TextRecognizer(private val context: Context) {
 
     fun takePhotoAndRecognizeText(
         imageCapture: ImageCapture,
-        viewModel: CalculatorViewModel,
-        onCameraClosed: () -> Unit
+        viewModel: CalculatorViewModel
     ) {
         val executor = ContextCompat.getMainExecutor(context)
 
@@ -26,20 +25,19 @@ class TextRecognizer(private val context: Context) {
 
         imageCapture.takePicture(outputOptions, executor, object : ImageCapture.OnImageSavedCallback {
             override fun onImageSaved(output: ImageCapture.OutputFileResults) {
-                recognizeTextFromImage(file, viewModel, onCameraClosed)
+                recognizeTextFromImage(file, viewModel)
             }
 
             override fun onError(exception: ImageCaptureException) {
                 Log.e("CameraScreen", "Failed to capture image", exception)
-                onCameraClosed()
+                viewModel.isCameraOpen = false
             }
         })
     }
 
     private fun recognizeTextFromImage(
         file: File,
-        viewModel: CalculatorViewModel,
-        onCameraClosed: () -> Unit)
+        viewModel: CalculatorViewModel)
     {
         val image = InputImage.fromFilePath(context, file.toUri())
         val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
@@ -48,10 +46,10 @@ class TextRecognizer(private val context: Context) {
             .addOnSuccessListener { visionText ->
                 val recognizedText = visionText.text
                 viewModel.setExpression(recognizedText)
-                onCameraClosed()
+                viewModel.isCameraOpen = false
             }
             .addOnFailureListener { _ ->
-                onCameraClosed()
+                viewModel.isCameraOpen = false
             }
     }
 }
