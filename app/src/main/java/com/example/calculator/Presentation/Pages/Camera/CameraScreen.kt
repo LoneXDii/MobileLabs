@@ -1,11 +1,7 @@
 package com.example.calculator.Presentation.Pages.Camera
 
 import CameraPreview
-import android.Manifest
 import android.util.Log
-import android.widget.Toast
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.Preview
@@ -21,7 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
-import com.example.calculator.Application.Services.TextRecognizer
+import com.example.calculator.Infrastructure.Services.TextRecognizer
 import com.example.calculator.Application.ViewModel.CalculatorViewModel
 import com.example.calculator.Presentation.Pages.Camera.Components.RequestCameraPermission
 
