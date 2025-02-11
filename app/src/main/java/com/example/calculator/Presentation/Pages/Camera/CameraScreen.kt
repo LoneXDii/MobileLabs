@@ -8,15 +8,23 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.unit.dp
 import com.example.calculator.Infrastructure.Services.TextRecognizer
 import com.example.calculator.Application.ViewModel.CalculatorViewModel
 import com.example.calculator.Presentation.Pages.Camera.Components.RequestCameraPermission
@@ -52,21 +60,32 @@ fun CameraScreen(viewModel: CalculatorViewModel) {
 
     Box(modifier = Modifier.fillMaxSize()) {
         CameraPreview(preview, Modifier.fillMaxSize())
+
         Button(
             onClick = {
                 textRecognizer.takePhotoAndRecognizeText(imageCapture, viewModel)
             },
-            modifier = Modifier.align(Alignment.BottomCenter)
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(bottom = 32.dp)
         ) {
             Text("Capture and Recognize")
         }
-        Button(
+
+        IconButton(
             onClick = {
                 viewModel.isCameraOpen = false
             },
-            modifier = Modifier.align(Alignment.BottomCenter)
-        ){
-            Text("Close")
+            modifier = Modifier
+                .align(Alignment.TopEnd)
+                .padding(horizontal = 0.dp, vertical = 16.dp)
+        ) {
+            Icon(
+                imageVector = Icons.Default.Close,
+                contentDescription = "Close",
+                tint = Color.White,
+                modifier = Modifier.size(36.dp)
+            )
         }
     }
 }
