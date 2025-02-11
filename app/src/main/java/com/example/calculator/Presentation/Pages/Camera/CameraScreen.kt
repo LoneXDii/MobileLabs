@@ -1,4 +1,4 @@
-package com.example.calculator.Presentation
+package com.example.calculator.Presentation.Pages.Camera
 
 import CameraPreview
 import android.Manifest
@@ -23,6 +23,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import com.example.calculator.Application.Services.TextRecognizer
 import com.example.calculator.Application.ViewModel.CalculatorViewModel
+import com.example.calculator.Presentation.Pages.Camera.Components.RequestCameraPermission
 
 @Composable
 fun CameraScreen(viewModel: CalculatorViewModel) {
@@ -71,21 +72,5 @@ fun CameraScreen(viewModel: CalculatorViewModel) {
         ){
             Text("Close")
         }
-    }
-}
-
-@Composable
-fun RequestCameraPermission() {
-    val context = LocalContext.current
-    val launcher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.RequestPermission()
-    ) { isGranted ->
-        if (!isGranted) {
-            Toast.makeText(context, "Camera permission denied", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    LaunchedEffect(Unit) {
-        launcher.launch(Manifest.permission.CAMERA)
     }
 }

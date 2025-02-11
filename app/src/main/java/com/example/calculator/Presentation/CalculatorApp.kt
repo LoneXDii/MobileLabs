@@ -10,6 +10,9 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.calculator.Application.ViewModel.CalculatorViewModel
 import com.example.calculator.Domain.Entities.CalculatorState
+import com.example.calculator.Presentation.Pages.Calculator.BaseCalculator
+import com.example.calculator.Presentation.Pages.Calculator.ScientificCalculator
+import com.example.calculator.Presentation.Pages.Camera.CameraScreen
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
