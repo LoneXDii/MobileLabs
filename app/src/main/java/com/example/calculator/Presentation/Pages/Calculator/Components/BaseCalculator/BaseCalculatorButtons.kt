@@ -2,14 +2,10 @@ package com.example.calculator.Presentation.Pages.Calculator.Components.BaseCalc
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
@@ -31,33 +27,25 @@ fun BaseCalculatorButtons(
             ButtonConfig("(", Orange, 1f) { onAction(CalculatorAction.Bracket(true)) },
             ButtonConfig(")", Orange, 1f) { onAction(CalculatorAction.Bracket(false)) },
             ButtonConfig("Del", LightGray, 1f) { onAction(CalculatorAction.Delete) },
-            ButtonConfig("/", Orange, 1f) { onAction(
-                CalculatorAction.Operation(
-                    CalculatorOperation.Divide)) }
+            ButtonConfig("/", Orange, 1f) { onAction(CalculatorAction.Operation(CalculatorOperation.Divide)) }
         ),
         listOf(
             ButtonConfig("7", Color.DarkGray, 1f) { onAction(CalculatorAction.Number(7)) },
             ButtonConfig("8", Color.DarkGray, 1f) { onAction(CalculatorAction.Number(8)) },
             ButtonConfig("9", Color.DarkGray, 1f) { onAction(CalculatorAction.Number(9)) },
-            ButtonConfig("*", Orange, 1f) { onAction(
-                CalculatorAction.Operation(
-                    CalculatorOperation.Multiply)) }
+            ButtonConfig("*", Orange, 1f) { onAction(CalculatorAction.Operation(CalculatorOperation.Multiply)) }
         ),
         listOf(
             ButtonConfig("4", Color.DarkGray, 1f) { onAction(CalculatorAction.Number(4)) },
             ButtonConfig("5", Color.DarkGray, 1f) { onAction(CalculatorAction.Number(5)) },
             ButtonConfig("6", Color.DarkGray, 1f) { onAction(CalculatorAction.Number(6)) },
-            ButtonConfig("-", Orange, 1f) { onAction(
-                CalculatorAction.Operation(
-                    CalculatorOperation.Subtract)) }
+            ButtonConfig("-", Orange, 1f) { onAction(CalculatorAction.Operation(CalculatorOperation.Subtract)) }
         ),
         listOf(
             ButtonConfig("1", Color.DarkGray, 1f) { onAction(CalculatorAction.Number(1)) },
             ButtonConfig("2", Color.DarkGray, 1f) { onAction(CalculatorAction.Number(2)) },
             ButtonConfig("3", Color.DarkGray, 1f) { onAction(CalculatorAction.Number(3)) },
-            ButtonConfig("+", Orange, 1f) { onAction(
-                CalculatorAction.Operation(
-                    CalculatorOperation.Add)) }
+            ButtonConfig("+", Orange, 1f) { onAction(CalculatorAction.Operation(CalculatorOperation.Add)) }
         ),
         listOf(
             ButtonConfig("AC", LightGray, 1f) { onAction(CalculatorAction.Clear) },
