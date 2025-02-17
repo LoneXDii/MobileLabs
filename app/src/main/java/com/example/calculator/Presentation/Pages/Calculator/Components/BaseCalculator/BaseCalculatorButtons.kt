@@ -14,9 +14,7 @@ import com.example.calculator.Domain.Entities.CalculatorAction
 import com.example.calculator.Domain.Entities.CalculatorOperation
 import com.example.calculator.Presentation.Pages.Calculator.Components.ButtonConfig
 import com.example.calculator.Presentation.Pages.Calculator.Components.CalculatorButton
-import com.example.calculator.ui.theme.HelpActionButtonColor
-import com.example.calculator.ui.theme.NumericButtonColor
-import com.example.calculator.ui.theme.OperationButtonColor
+import com.example.calculator.ui.theme.Colors
 
 @Composable
 fun BaseCalculatorButtons(
@@ -25,34 +23,34 @@ fun BaseCalculatorButtons(
 ){
     val buttonRows = listOf(
         listOf(
-            ButtonConfig("(", OperationButtonColor, 1f) { onAction(CalculatorAction.Bracket(true)) },
-            ButtonConfig(")", OperationButtonColor, 1f) { onAction(CalculatorAction.Bracket(false)) },
-            ButtonConfig("Del", HelpActionButtonColor, 1f) { onAction(CalculatorAction.Delete) },
-            ButtonConfig("/", OperationButtonColor, 1f) { onAction(CalculatorAction.Operation(CalculatorOperation.Divide)) }
+            ButtonConfig("(", Colors.OperationButtonColor, 1f) { onAction(CalculatorAction.Bracket(true)) },
+            ButtonConfig(")", Colors.OperationButtonColor, 1f) { onAction(CalculatorAction.Bracket(false)) },
+            ButtonConfig("Del", Colors.HelpActionButtonColor, 1f) { onAction(CalculatorAction.Delete) },
+            ButtonConfig("/", Colors.OperationButtonColor, 1f) { onAction(CalculatorAction.Operation(CalculatorOperation.Divide)) }
         ),
         listOf(
-            ButtonConfig("7", NumericButtonColor, 1f) { onAction(CalculatorAction.Number(7)) },
-            ButtonConfig("8", NumericButtonColor, 1f) { onAction(CalculatorAction.Number(8)) },
-            ButtonConfig("9", NumericButtonColor, 1f) { onAction(CalculatorAction.Number(9)) },
-            ButtonConfig("*", OperationButtonColor, 1f) { onAction(CalculatorAction.Operation(CalculatorOperation.Multiply)) }
+            ButtonConfig("7", Colors.NumericButtonColor, 1f) { onAction(CalculatorAction.Number(7)) },
+            ButtonConfig("8", Colors.NumericButtonColor, 1f) { onAction(CalculatorAction.Number(8)) },
+            ButtonConfig("9", Colors.NumericButtonColor, 1f) { onAction(CalculatorAction.Number(9)) },
+            ButtonConfig("*", Colors.OperationButtonColor, 1f) { onAction(CalculatorAction.Operation(CalculatorOperation.Multiply)) }
         ),
         listOf(
-            ButtonConfig("4", NumericButtonColor, 1f) { onAction(CalculatorAction.Number(4)) },
-            ButtonConfig("5", NumericButtonColor, 1f) { onAction(CalculatorAction.Number(5)) },
-            ButtonConfig("6", NumericButtonColor, 1f) { onAction(CalculatorAction.Number(6)) },
-            ButtonConfig("-", OperationButtonColor, 1f) { onAction(CalculatorAction.Operation(CalculatorOperation.Subtract)) }
+            ButtonConfig("4", Colors.NumericButtonColor, 1f) { onAction(CalculatorAction.Number(4)) },
+            ButtonConfig("5", Colors.NumericButtonColor, 1f) { onAction(CalculatorAction.Number(5)) },
+            ButtonConfig("6", Colors.NumericButtonColor, 1f) { onAction(CalculatorAction.Number(6)) },
+            ButtonConfig("-", Colors.OperationButtonColor, 1f) { onAction(CalculatorAction.Operation(CalculatorOperation.Subtract)) }
         ),
         listOf(
-            ButtonConfig("1", NumericButtonColor, 1f) { onAction(CalculatorAction.Number(1)) },
-            ButtonConfig("2", NumericButtonColor, 1f) { onAction(CalculatorAction.Number(2)) },
-            ButtonConfig("3", NumericButtonColor, 1f) { onAction(CalculatorAction.Number(3)) },
-            ButtonConfig("+", OperationButtonColor, 1f) { onAction(CalculatorAction.Operation(CalculatorOperation.Add)) }
+            ButtonConfig("1", Colors.NumericButtonColor, 1f) { onAction(CalculatorAction.Number(1)) },
+            ButtonConfig("2", Colors.NumericButtonColor, 1f) { onAction(CalculatorAction.Number(2)) },
+            ButtonConfig("3", Colors.NumericButtonColor, 1f) { onAction(CalculatorAction.Number(3)) },
+            ButtonConfig("+", Colors.OperationButtonColor, 1f) { onAction(CalculatorAction.Operation(CalculatorOperation.Add)) }
         ),
         listOf(
-            ButtonConfig("AC", HelpActionButtonColor, 1f) { onAction(CalculatorAction.Clear) },
-            ButtonConfig("0", NumericButtonColor, 1f) { onAction(CalculatorAction.Number(0)) },
-            ButtonConfig(".", NumericButtonColor, 1f) { onAction(CalculatorAction.Decimal) },
-            ButtonConfig("=", OperationButtonColor, 1f) { onAction(CalculatorAction.Calculate) }
+            ButtonConfig("AC", Colors.HelpActionButtonColor, 1f) { onAction(CalculatorAction.Clear) },
+            ButtonConfig("0", Colors.NumericButtonColor, 1f) { onAction(CalculatorAction.Number(0)) },
+            ButtonConfig(".", Colors.NumericButtonColor, 1f) { onAction(CalculatorAction.Decimal) },
+            ButtonConfig("=", Colors.OperationButtonColor, 1f) { onAction(CalculatorAction.Calculate) }
         )
     )
 

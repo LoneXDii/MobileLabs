@@ -21,7 +21,7 @@ import com.example.calculator.Application.ViewModel.CalculatorViewModel
 import com.example.calculator.Application.ViewModel.CalculatorViewModelFactory
 import com.example.calculator.Presentation.CalculatorApp
 import com.example.calculator.ui.theme.CalculatorTheme
-import com.example.calculator.ui.theme.MainBackground
+import com.example.calculator.ui.theme.Colors
 
 class MainActivity : ComponentActivity() {
     @SuppressLint("HardwareIds")
@@ -44,7 +44,7 @@ class MainActivity : ComponentActivity() {
                     buttonSpacing = buttonSpacing,
                     modifier = Modifier
                         .fillMaxSize()
-                        .background(MainBackground)
+                        .background(Colors.MainBackground)
                         .padding(vertical = 16.dp, horizontal = 8.dp)
                 )
             }

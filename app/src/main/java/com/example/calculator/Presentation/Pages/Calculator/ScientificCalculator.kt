@@ -33,7 +33,7 @@ import com.example.calculator.Domain.Entities.CalculatorAction
 import com.example.calculator.Domain.Entities.CalculatorState
 import com.example.calculator.Presentation.Pages.Calculator.Components.ScientificCalculator.ScientificCalculatorButtons
 import com.example.calculator.Presentation.Pages.History.CalculatorHistory
-import com.example.calculator.ui.theme.DefaultTextColor
+import com.example.calculator.ui.theme.Colors
 
 @Composable
 fun ScientificCalculator(
@@ -44,7 +44,7 @@ fun ScientificCalculator(
     onCameraButton: () -> Unit,
     onSetValue: (String) -> Unit
 ) {
-    var isHistoryOpen = remember { mutableStateOf(false) }
+    val isHistoryOpen = remember { mutableStateOf(false) }
     var isSwiping = false
 
     Box(
@@ -85,7 +85,7 @@ fun ScientificCalculator(
                     fontWeight = FontWeight.Light,
                     fontSize = 25.sp,
                     lineHeight = 30.sp,
-                    color = DefaultTextColor,
+                    color = Colors.DefaultTextColor,
                     maxLines = 1
                 )
 
@@ -102,7 +102,7 @@ fun ScientificCalculator(
                         Icon(
                             imageVector = if (isHistoryOpen.value) Icons.Default.Calculate else Icons.Default.History,
                             contentDescription = "History",
-                            tint = DefaultTextColor,
+                            tint = Colors.DefaultTextColor,
                             modifier = Modifier.padding(2.dp)
                                 .size(25.dp)
                         )
@@ -114,7 +114,7 @@ fun ScientificCalculator(
                         Icon(
                             imageVector = Icons.Default.Camera,
                             contentDescription = "Open Camera",
-                            tint = DefaultTextColor,
+                            tint = Colors.DefaultTextColor,
                             modifier = Modifier.padding(2.dp)
                                 .size(25.dp)
                         )
@@ -126,7 +126,7 @@ fun ScientificCalculator(
                         Icon(
                             imageVector = Icons.Default.Settings,
                             contentDescription = "Settings",
-                            tint = DefaultTextColor,
+                            tint = Colors.DefaultTextColor,
                             modifier = Modifier
                                 .padding(2.dp)
                                 .size(25.dp)
@@ -142,7 +142,7 @@ fun ScientificCalculator(
                         fontWeight = FontWeight.Light,
                         fontSize = 20.sp,
                         lineHeight = 25.sp,
-                        color = DefaultTextColor,
+                        color = Colors.DefaultTextColor,
                         maxLines = 1
                     )
                 }

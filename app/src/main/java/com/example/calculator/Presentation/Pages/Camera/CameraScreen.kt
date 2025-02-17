@@ -21,14 +21,13 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
 import com.example.calculator.Infrastructure.Services.TextRecognizer
 import com.example.calculator.Application.ViewModel.CalculatorViewModel
 import com.example.calculator.Presentation.Pages.Camera.Components.RequestCameraPermission
-import com.example.calculator.ui.theme.DefaultTextColor
+import com.example.calculator.ui.theme.Colors
 
 @Composable
 fun CameraScreen(
@@ -86,7 +85,7 @@ fun CameraScreen(
             Icon(
                 imageVector = Icons.Default.Close,
                 contentDescription = "Close",
-                tint = DefaultTextColor,
+                tint = Colors.DefaultTextColor,
                 modifier = Modifier.size(36.dp)
             )
         }

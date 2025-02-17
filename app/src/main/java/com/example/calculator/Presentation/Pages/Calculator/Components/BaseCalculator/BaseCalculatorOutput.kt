@@ -14,7 +14,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.calculator.Domain.Entities.CalculatorState
-import com.example.calculator.ui.theme.DefaultTextColor
+import com.example.calculator.ui.theme.Colors
 
 @Composable
 fun BaseCalculatorOutput(
@@ -35,7 +35,7 @@ fun BaseCalculatorOutput(
             fontWeight = FontWeight.Light,
             fontSize = 35.sp,
             lineHeight = 40.sp,
-            color = DefaultTextColor,
+            color = Colors.DefaultTextColor,
             maxLines = 4
         )
     }
@@ -48,7 +48,7 @@ fun BaseCalculatorOutput(
         fontWeight = FontWeight.Light,
         fontSize = 25.sp,
         lineHeight = 30.sp,
-        color = DefaultTextColor,
+        color = Colors.DefaultTextColor,
         maxLines = 1
     )
 }

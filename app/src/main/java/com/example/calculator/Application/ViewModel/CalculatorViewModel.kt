@@ -5,7 +5,6 @@ import android.os.VibrationEffect
 import android.os.Vibrator
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModel
 import com.example.calculator.Domain.Entities.CalculatorAction
 import com.example.calculator.Domain.Entities.CalculatorConstants

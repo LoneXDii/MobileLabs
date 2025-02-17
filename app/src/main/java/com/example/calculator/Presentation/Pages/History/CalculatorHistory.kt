@@ -29,8 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.calculator.Domain.Entities.CalculatorState
 import com.example.calculator.Infrastructure.Persistence.FirebaseRepository
-import com.example.calculator.ui.theme.DefaultTextColor
-import com.example.calculator.ui.theme.SecondaryTextColor
+import com.example.calculator.ui.theme.Colors
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -59,7 +58,7 @@ fun CalculatorHistory(
             text = "History",
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
-            color = DefaultTextColor,
+            color = Colors.DefaultTextColor,
             modifier = Modifier.padding(8.dp)
         )
 
@@ -83,7 +82,7 @@ fun CalculatorHistory(
                             fontWeight = FontWeight.Light,
                             fontSize = 20.sp,
                             lineHeight = 25.sp,
-                            color = DefaultTextColor,
+                            color = Colors.DefaultTextColor,
                             maxLines = 2,
                             modifier = Modifier.clickable {
                                 onSetValue(history[index].expression)
@@ -91,7 +90,7 @@ fun CalculatorHistory(
                         )
                         Text(
                             text = "=" + history[index].tempResult,
-                            color = SecondaryTextColor,
+                            color = Colors.SecondaryTextColor,
                             fontSize = 25.sp,
                             lineHeight = 30.sp,
                             modifier = Modifier.padding(top = 4.dp)

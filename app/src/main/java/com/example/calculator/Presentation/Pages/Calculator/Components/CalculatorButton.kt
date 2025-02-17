@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
-import com.example.calculator.ui.theme.DefaultTextColor
+import com.example.calculator.ui.theme.Colors
 
 @Composable
 fun CalculatorButton(
@@ -29,7 +29,7 @@ fun CalculatorButton(
         Text(
             text = symbol,
             fontSize = fontSize,
-            color = DefaultTextColor
+            color = Colors.DefaultTextColor
         )
     }
 }
