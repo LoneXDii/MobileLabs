@@ -1,6 +1,5 @@
 package com.example.calculator.Presentation.Pages.Calculator
 
-import android.content.Context
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -38,7 +37,8 @@ fun BaseCalculator(
     modifier: Modifier = Modifier,
     buttonSpacing: Dp = 8.dp,
     onAction: (CalculatorAction) -> Unit,
-    onCameraButton: () -> Unit
+    onCameraButton: () -> Unit,
+    onSetValue: (String) -> Unit
 ) {
     val isHistoryOpen = remember { mutableStateOf(false) }
     var isSwiping = false
@@ -131,7 +131,7 @@ fun BaseCalculator(
                     BaseCalculatorButtons(onAction, buttonSpacing)
                 }
                 else{
-                    CalculatorHistory()
+                    CalculatorHistory(onSetValue)
                 }
             }
         }

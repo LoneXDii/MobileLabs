@@ -34,7 +34,8 @@ fun CalculatorApp(
                 onAction = viewModel::onAction,
                 buttonSpacing = buttonSpacing,
                 modifier = modifier,
-                onCameraButton = { viewModel.isCameraOpen = true }
+                onCameraButton = { viewModel.isCameraOpen = true },
+                onSetValue = { expr: String -> viewModel.setExpression(expr) }
             )
         } else {
             ScientificCalculator(
@@ -42,7 +43,8 @@ fun CalculatorApp(
                 onAction = viewModel::onAction,
                 buttonSpacing = buttonSpacing,
                 modifier = modifier,
-                onCameraButton = { viewModel.isCameraOpen = true }
+                onCameraButton = { viewModel.isCameraOpen = true },
+                onSetValue = { expr: String -> viewModel.setExpression(expr) }
             )
         }
     }

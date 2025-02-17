@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.provider.Settings
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,6 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.calculator.Application.ViewModel.CalculatorViewModel
 import com.example.calculator.Domain.Entities.CalculatorState
 import com.example.calculator.Infrastructure.Persistence.FirebaseRepository
 import kotlinx.coroutines.Dispatchers
@@ -34,8 +36,9 @@ import kotlinx.coroutines.withContext
 
 @SuppressLint("HardwareIds")
 @Composable
-fun CalculatorHistory()
-{
+fun CalculatorHistory(
+    onSetValue: (String) -> Unit
+) {
     val context = LocalContext.current
     val androidId = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
     val firebase = FirebaseRepository(androidId)
@@ -81,7 +84,10 @@ fun CalculatorHistory()
                             fontSize = 20.sp,
                             lineHeight = 25.sp,
                             color = Color.White,
-                            maxLines = 2
+                            maxLines = 2,
+                            modifier = Modifier.clickable {
+                                onSetValue(history[index].expression)
+                            }
                         )
                         Text(
                             text = "=" + history[index].tempResult,
@@ -89,6 +95,9 @@ fun CalculatorHistory()
                             fontSize = 25.sp,
                             lineHeight = 30.sp,
                             modifier = Modifier.padding(top = 4.dp)
+                                .clickable {
+                                    onSetValue(history[index].tempResult)
+                                }
                         )
                     }
                 }

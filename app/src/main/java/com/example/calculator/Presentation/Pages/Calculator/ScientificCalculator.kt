@@ -40,7 +40,8 @@ fun ScientificCalculator(
     modifier: Modifier = Modifier,
     buttonSpacing: Dp = 8.dp,
     onAction: (CalculatorAction) -> Unit,
-    onCameraButton: () -> Unit
+    onCameraButton: () -> Unit,
+    onSetValue: (String) -> Unit
 ) {
     var isHistoryOpen = remember { mutableStateOf(false) }
     var isSwiping = false
@@ -150,7 +151,7 @@ fun ScientificCalculator(
                 ScientificCalculatorButtons(onAction, buttonSpacing)
             }
             else {
-                CalculatorHistory()
+                CalculatorHistory(onSetValue)
             }
         }
     }
