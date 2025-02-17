@@ -33,6 +33,7 @@ import com.example.calculator.Domain.Entities.CalculatorAction
 import com.example.calculator.Domain.Entities.CalculatorState
 import com.example.calculator.Presentation.Pages.Calculator.Components.ScientificCalculator.ScientificCalculatorButtons
 import com.example.calculator.Presentation.Pages.History.CalculatorHistory
+import com.example.calculator.ui.theme.DefaultTextColor
 
 @Composable
 fun ScientificCalculator(
@@ -84,7 +85,7 @@ fun ScientificCalculator(
                     fontWeight = FontWeight.Light,
                     fontSize = 25.sp,
                     lineHeight = 30.sp,
-                    color = Color.White,
+                    color = DefaultTextColor,
                     maxLines = 1
                 )
 
@@ -101,7 +102,7 @@ fun ScientificCalculator(
                         Icon(
                             imageVector = if (isHistoryOpen.value) Icons.Default.Calculate else Icons.Default.History,
                             contentDescription = "History",
-                            tint = Color.White,
+                            tint = DefaultTextColor,
                             modifier = Modifier.padding(2.dp)
                                 .size(25.dp)
                         )
@@ -113,7 +114,7 @@ fun ScientificCalculator(
                         Icon(
                             imageVector = Icons.Default.Camera,
                             contentDescription = "Open Camera",
-                            tint = Color.White,
+                            tint = DefaultTextColor,
                             modifier = Modifier.padding(2.dp)
                                 .size(25.dp)
                         )
@@ -125,7 +126,7 @@ fun ScientificCalculator(
                         Icon(
                             imageVector = Icons.Default.Settings,
                             contentDescription = "Settings",
-                            tint = Color.White,
+                            tint = DefaultTextColor,
                             modifier = Modifier
                                 .padding(2.dp)
                                 .size(25.dp)
@@ -141,7 +142,7 @@ fun ScientificCalculator(
                         fontWeight = FontWeight.Light,
                         fontSize = 20.sp,
                         lineHeight = 25.sp,
-                        color = Color.White,
+                        color = DefaultTextColor,
                         maxLines = 1
                     )
                 }

@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import com.example.calculator.Infrastructure.Services.TextRecognizer
 import com.example.calculator.Application.ViewModel.CalculatorViewModel
 import com.example.calculator.Presentation.Pages.Camera.Components.RequestCameraPermission
+import com.example.calculator.ui.theme.DefaultTextColor
 
 @Composable
 fun CameraScreen(
@@ -85,7 +86,7 @@ fun CameraScreen(
             Icon(
                 imageVector = Icons.Default.Close,
                 contentDescription = "Close",
-                tint = Color.White,
+                tint = DefaultTextColor,
                 modifier = Modifier.size(36.dp)
             )
         }

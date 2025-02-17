@@ -1,7 +1,6 @@
 package com.example.calculator.Presentation.Pages.History
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.provider.Settings
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -28,9 +27,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.calculator.Application.ViewModel.CalculatorViewModel
 import com.example.calculator.Domain.Entities.CalculatorState
 import com.example.calculator.Infrastructure.Persistence.FirebaseRepository
+import com.example.calculator.ui.theme.DefaultTextColor
+import com.example.calculator.ui.theme.SecondaryTextColor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -59,7 +59,7 @@ fun CalculatorHistory(
             text = "History",
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
-            color = Color.White,
+            color = DefaultTextColor,
             modifier = Modifier.padding(8.dp)
         )
 
@@ -83,7 +83,7 @@ fun CalculatorHistory(
                             fontWeight = FontWeight.Light,
                             fontSize = 20.sp,
                             lineHeight = 25.sp,
-                            color = Color.White,
+                            color = DefaultTextColor,
                             maxLines = 2,
                             modifier = Modifier.clickable {
                                 onSetValue(history[index].expression)
@@ -91,7 +91,7 @@ fun CalculatorHistory(
                         )
                         Text(
                             text = "=" + history[index].tempResult,
-                            color = Color.Green,
+                            color = SecondaryTextColor,
                             fontSize = 25.sp,
                             lineHeight = 30.sp,
                             modifier = Modifier.padding(top = 4.dp)

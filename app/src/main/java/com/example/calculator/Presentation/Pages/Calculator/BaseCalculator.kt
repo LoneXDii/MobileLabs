@@ -30,6 +30,7 @@ import com.example.calculator.Domain.Entities.CalculatorState
 import com.example.calculator.Presentation.Pages.Calculator.Components.BaseCalculator.BaseCalculatorButtons
 import com.example.calculator.Presentation.Pages.Calculator.Components.BaseCalculator.BaseCalculatorOutput
 import com.example.calculator.Presentation.Pages.History.CalculatorHistory
+import com.example.calculator.ui.theme.DefaultTextColor
 
 @Composable
 fun BaseCalculator(
@@ -42,7 +43,6 @@ fun BaseCalculator(
 ) {
     val isHistoryOpen = remember { mutableStateOf(false) }
     var isSwiping = false
-
 
     Box(
         modifier = modifier
@@ -85,7 +85,7 @@ fun BaseCalculator(
                         Icon(
                             imageVector = if (isHistoryOpen.value) Icons.Default.Calculate else Icons.Default.History,
                             contentDescription = "History",
-                            tint = Color.White,
+                            tint = DefaultTextColor,
                             modifier = Modifier
                                 .padding(2.dp)
                                 .size(36.dp)
@@ -98,7 +98,7 @@ fun BaseCalculator(
                         Icon(
                             imageVector = Icons.Default.Camera,
                             contentDescription = "Open Camera",
-                            tint = Color.White,
+                            tint = DefaultTextColor,
                             modifier = Modifier
                                 .padding(2.dp)
                                 .size(36.dp)
@@ -111,7 +111,7 @@ fun BaseCalculator(
                         Icon(
                             imageVector = Icons.Default.Settings,
                             contentDescription = "Settings",
-                            tint = Color.White,
+                            tint = DefaultTextColor,
                             modifier = Modifier
                                 .padding(2.dp)
                                 .size(36.dp)
