@@ -22,12 +22,19 @@ import com.example.calculator.Application.ViewModel.CalculatorViewModelFactory
 import com.example.calculator.Presentation.CalculatorApp
 import com.example.calculator.ui.theme.CalculatorTheme
 import com.example.calculator.ui.theme.Colors
+import com.google.firebase.FirebaseApp
 
 class MainActivity : ComponentActivity() {
     @SuppressLint("HardwareIds")
     @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        FirebaseApp.initializeApp(this)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requestPermissions(arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 1)
+        }
+
         enableEdgeToEdge()
         setContent {
             CalculatorTheme {
