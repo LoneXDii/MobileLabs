@@ -11,6 +11,7 @@ import com.example.calculator.Domain.Entities.CalculatorConstants
 import com.example.calculator.Domain.Entities.CalculatorOperation
 import com.example.calculator.Domain.Entities.CalculatorScientificOperation
 import com.example.calculator.Domain.Entities.CalculatorState
+import com.example.calculator.Infrastructure.Persistence.FirebaseRepository
 import net.objecthunter.exp4j.ExpressionBuilder
 import net.objecthunter.exp4j.function.Function
 import kotlin.math.ln
@@ -18,6 +19,8 @@ import kotlin.math.ln
 class CalculatorViewModel(
     private val vibrator: Vibrator
 ): ViewModel() {
+    private var firebase = FirebaseRepository()
+
     private var _state = mutableStateOf(CalculatorState())
     var state: CalculatorState
         get() = _state.value
@@ -101,6 +104,8 @@ class CalculatorViewModel(
 
     private fun performCalculation() {
         val result = calculate() ?: return
+
+        firebase.saveOperation(state.expression, result)
 
         state = state.copy(
             expression = result,
