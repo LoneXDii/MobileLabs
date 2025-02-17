@@ -6,6 +6,7 @@ import android.provider.Settings
 import android.util.Log
 import com.example.calculator.Domain.Entities.CalculatorState
 import com.google.firebase.Firebase
+import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.google.firebase.firestore.firestore
 import kotlinx.coroutines.tasks.await
 
@@ -26,6 +27,11 @@ class FirebaseRepository(private val androidId: String) {
         catch (e: Exception){
             Log.e("FirebaseRepository.SaveOperation", e.message.toString())
         }
+    }
+
+    fun clearHistory() {
+        db.collection("operations")
+
     }
 
     suspend fun loadOperations(): List<CalculatorState>{

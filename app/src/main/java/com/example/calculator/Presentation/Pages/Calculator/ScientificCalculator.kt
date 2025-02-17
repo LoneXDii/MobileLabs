@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Calculate
 import androidx.compose.material.icons.filled.Camera
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Settings
@@ -98,7 +99,7 @@ fun ScientificCalculator(
                         onClick = { isHistoryOpen.value = !isHistoryOpen.value }
                     ) {
                         Icon(
-                            imageVector = Icons.Default.History,
+                            imageVector = if (isHistoryOpen.value) Icons.Default.Calculate else Icons.Default.History,
                             contentDescription = "History",
                             tint = Color.White,
                             modifier = Modifier.padding(2.dp)
@@ -150,7 +151,7 @@ fun ScientificCalculator(
                 ScientificCalculatorButtons(onAction, buttonSpacing)
             }
             else {
-                CalculatorHistory(onClose = {isHistoryOpen.value = false})
+                CalculatorHistory()
             }
         }
     }

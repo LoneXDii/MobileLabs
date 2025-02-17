@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.provider.Settings
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -33,9 +34,8 @@ import kotlinx.coroutines.withContext
 
 @SuppressLint("HardwareIds")
 @Composable
-fun CalculatorHistory(
-    onClose: () -> Unit,
-) {
+fun CalculatorHistory()
+{
     val context = LocalContext.current
     val androidId = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
     val firebase = FirebaseRepository(androidId)
@@ -53,7 +53,7 @@ fun CalculatorHistory(
             .fillMaxSize()
     ) {
         Text(
-            text = "История",
+            text = "History",
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             color = Color.White,
@@ -64,37 +64,44 @@ fun CalculatorHistory(
             modifier = Modifier.weight(1f)
         ) {
             items(history.size) { index ->
-                Box(modifier = Modifier.fillMaxWidth()
-                    .padding(2.dp)) {
-                    Text(
-                        text = history[index].expression,
-                        textAlign = TextAlign.Start,
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        fontWeight = FontWeight.Light,
-                        fontSize = 20.sp,
-                        lineHeight = 25.sp,
-                        color = Color.White
-                    )
-                    Text(
-                        text = "=" + history[index].tempResult,
-                        color = Color.Green,
-                        fontSize = 25.sp,
-                        lineHeight = 30.sp,
+                Box(modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp)
+                ) {
+                    Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(top = 25.dp)
-                    )
+                            .padding(0.dp),
+                        verticalArrangement = Arrangement.spacedBy(0.dp)
+                    ) {
+                        Text(
+                            text = history[index].expression,
+                            textAlign = TextAlign.Start,
+                            fontWeight = FontWeight.Light,
+                            fontSize = 20.sp,
+                            lineHeight = 25.sp,
+                            color = Color.White,
+                            maxLines = 2
+                        )
+                        Text(
+                            text = "=" + history[index].tempResult,
+                            color = Color.Green,
+                            fontSize = 25.sp,
+                            lineHeight = 30.sp,
+                            modifier = Modifier.padding(top = 4.dp)
+                        )
+                    }
                 }
             }
         }
 
         Button(
-            onClick = onClose,
-            modifier = Modifier.align(Alignment.Start)
+            onClick = { firebase.clearHistory() },
+            modifier = Modifier
+                .align(Alignment.Start)
                 .padding(8.dp)
         ) {
-            Text(text = "Закрыть")
+            Text(text = "Clear")
         }
     }
 }
