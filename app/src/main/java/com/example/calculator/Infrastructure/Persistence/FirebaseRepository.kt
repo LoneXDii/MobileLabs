@@ -31,7 +31,15 @@ class FirebaseRepository(private val androidId: String) {
 
     fun clearHistory() {
         db.collection("operations")
-
+            .whereEqualTo("androidId", androidId)
+            .get()
+            .addOnSuccessListener { snapshot ->
+                for (document in snapshot.documents){
+                    db.collection("operations")
+                        .document(document.id)
+                        .delete()
+                }
+            }
     }
 
     suspend fun loadOperations(): List<CalculatorState>{

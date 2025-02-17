@@ -96,7 +96,10 @@ fun CalculatorHistory()
         }
 
         Button(
-            onClick = { firebase.clearHistory() },
+            onClick = {
+                firebase.clearHistory()
+                history = emptyList()
+            },
             modifier = Modifier
                 .align(Alignment.Start)
                 .padding(8.dp)
