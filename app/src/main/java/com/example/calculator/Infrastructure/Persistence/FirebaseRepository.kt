@@ -1,6 +1,7 @@
 package com.example.calculator.Infrastructure.Persistence
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.ui.graphics.Color
 import com.example.calculator.Domain.Entities.CalculatorState
@@ -68,7 +69,18 @@ class FirebaseRepository(private val androidId: String) {
         )
 
         db.collection("configuration")
-            .add(data)
+            .whereEqualTo("androidId", androidId)
+            .get()
+            .addOnSuccessListener { snapshot ->
+                for (document in snapshot.documents){
+                    db.collection("configuration")
+                        .document(document.id)
+                        .delete()
+                }
+
+                db.collection("configuration")
+                    .add(data)
+            }
     }
 
     suspend fun loadUiTheme(){
@@ -90,7 +102,7 @@ class FirebaseRepository(private val androidId: String) {
                 Colors.MainBackground = hexToColor(document.getString("MainBackground").toString())
             }
         } catch (e: Exception) {
-            //emptyList()
+            Log.d("TEST", e.message.toString())
         }
     }
 
@@ -105,7 +117,8 @@ class FirebaseRepository(private val androidId: String) {
     }
 
     private fun hexToColor(hex: String): Color {
-        val color = if (hex.length == 6) "FF$hex" else hex
+        val col = hex.drop(1)
+        val color = if (col.length == 6) "FF$col" else col
 
         return Color(color.toLong(16))
     }

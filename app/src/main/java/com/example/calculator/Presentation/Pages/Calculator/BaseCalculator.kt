@@ -29,6 +29,7 @@ import com.example.calculator.Domain.Entities.CalculatorAction
 import com.example.calculator.Domain.Entities.CalculatorState
 import com.example.calculator.Presentation.Pages.Calculator.Components.BaseCalculator.BaseCalculatorButtons
 import com.example.calculator.Presentation.Pages.Calculator.Components.BaseCalculator.BaseCalculatorOutput
+import com.example.calculator.Presentation.Pages.Customization.ColorsSettings
 import com.example.calculator.Presentation.Pages.History.CalculatorHistory
 import com.example.calculator.ui.theme.Colors
 
@@ -42,6 +43,7 @@ fun BaseCalculator(
     onSetValue: (String) -> Unit
 ) {
     val isHistoryOpen = remember { mutableStateOf(false) }
+    val isSettingOpen = remember { mutableStateOf(false) }
     var isSwiping = false
 
     Box(
@@ -80,7 +82,10 @@ fun BaseCalculator(
                     horizontalArrangement = Arrangement.Start
                 ) {
                     IconButton(
-                        onClick = { isHistoryOpen.value = !isHistoryOpen.value }
+                        onClick = {
+                            isHistoryOpen.value = !isHistoryOpen.value
+                            isSettingOpen.value = false
+                        }
                     ) {
                         Icon(
                             imageVector = if (isHistoryOpen.value) Icons.Default.Calculate else Icons.Default.History,
@@ -106,10 +111,13 @@ fun BaseCalculator(
                     }
 
                     IconButton(
-                        onClick = { /* Действие для настроек */ }
+                        onClick = {
+                            isSettingOpen.value = !isSettingOpen.value
+                            isHistoryOpen.value = false
+                        }
                     ) {
                         Icon(
-                            imageVector = Icons.Default.Settings,
+                            imageVector = if (isSettingOpen.value) Icons.Default.Calculate else Icons.Default.Settings,
                             contentDescription = "Settings",
                             tint = Colors.DefaultTextColor,
                             modifier = Modifier
@@ -127,11 +135,14 @@ fun BaseCalculator(
                     .fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(buttonSpacing))
             {
-                if(!isHistoryOpen.value) {
-                    BaseCalculatorButtons(onAction, buttonSpacing)
+                if(isHistoryOpen.value) {
+                    CalculatorHistory(onSetValue)
+                }
+                else if(isSettingOpen.value){
+                    ColorsSettings()
                 }
                 else{
-                    CalculatorHistory(onSetValue)
+                    BaseCalculatorButtons(onAction, buttonSpacing)
                 }
             }
         }

@@ -1,5 +1,7 @@
 package com.example.calculator.Presentation.Pages.Calculator
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.Arrangement
@@ -31,10 +33,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.calculator.Domain.Entities.CalculatorAction
 import com.example.calculator.Domain.Entities.CalculatorState
+import com.example.calculator.Presentation.Pages.Calculator.Components.BaseCalculator.BaseCalculatorButtons
 import com.example.calculator.Presentation.Pages.Calculator.Components.ScientificCalculator.ScientificCalculatorButtons
+import com.example.calculator.Presentation.Pages.Customization.ColorsSettings
 import com.example.calculator.Presentation.Pages.History.CalculatorHistory
 import com.example.calculator.ui.theme.Colors
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun ScientificCalculator(
     state: CalculatorState,
@@ -45,6 +50,7 @@ fun ScientificCalculator(
     onSetValue: (String) -> Unit
 ) {
     val isHistoryOpen = remember { mutableStateOf(false) }
+    val isSettingOpen = remember { mutableStateOf(false) }
     var isSwiping = false
 
     Box(
@@ -97,7 +103,10 @@ fun ScientificCalculator(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     IconButton(
-                        onClick = { isHistoryOpen.value = !isHistoryOpen.value }
+                        onClick = {
+                            isHistoryOpen.value = !isHistoryOpen.value
+                            isSettingOpen.value = false
+                        }
                     ) {
                         Icon(
                             imageVector = if (isHistoryOpen.value) Icons.Default.Calculate else Icons.Default.History,
@@ -121,10 +130,13 @@ fun ScientificCalculator(
                     }
 
                     IconButton(
-                        onClick = { /* Действие для настроек */ }
+                        onClick = {
+                            isSettingOpen.value = !isSettingOpen.value
+                            isHistoryOpen.value = false
+                        }
                     ) {
                         Icon(
-                            imageVector = Icons.Default.Settings,
+                            imageVector = if (isSettingOpen.value) Icons.Default.Calculate else Icons.Default.Settings,
                             contentDescription = "Settings",
                             tint = Colors.DefaultTextColor,
                             modifier = Modifier
@@ -148,11 +160,14 @@ fun ScientificCalculator(
                 }
             }
 
-            if(!isHistoryOpen.value) {
-                ScientificCalculatorButtons(onAction, buttonSpacing)
-            }
-            else {
+            if(isHistoryOpen.value) {
                 CalculatorHistory(onSetValue)
+            }
+            else if(isSettingOpen.value){
+                ColorsSettings()
+            }
+            else{
+                ScientificCalculatorButtons(onAction, buttonSpacing)
             }
         }
     }
