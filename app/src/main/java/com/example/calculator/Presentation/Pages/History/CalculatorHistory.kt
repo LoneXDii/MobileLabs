@@ -1,6 +1,10 @@
 package com.example.calculator.Presentation.Pages.History
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.provider.Settings
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,7 +21,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.calculator.Domain.Entities.CalculatorState
@@ -25,11 +31,14 @@ import com.example.calculator.Infrastructure.Persistence.FirebaseRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
+@SuppressLint("HardwareIds")
 @Composable
 fun CalculatorHistory(
-    onClose: () -> Unit
+    onClose: () -> Unit,
 ) {
-    val firebase = FirebaseRepository()
+    val context = LocalContext.current
+    val androidId = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
+    val firebase = FirebaseRepository(androidId)
     var history by remember { mutableStateOf<List<CalculatorState>>(emptyList()) }
 
     LaunchedEffect(Unit) {
@@ -55,20 +64,28 @@ fun CalculatorHistory(
             modifier = Modifier.weight(1f)
         ) {
             items(history.size) { index ->
-                Text(
-                    text = history[index].expression,
-                    color = Color.White,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp)
-                )
-                Text(
-                    text = "=" + history[index].tempResult,
-                    color = Color.Green,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp)
-                )
+                Box(modifier = Modifier.fillMaxWidth()
+                    .padding(2.dp)) {
+                    Text(
+                        text = history[index].expression,
+                        textAlign = TextAlign.Start,
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        fontWeight = FontWeight.Light,
+                        fontSize = 20.sp,
+                        lineHeight = 25.sp,
+                        color = Color.White
+                    )
+                    Text(
+                        text = "=" + history[index].tempResult,
+                        color = Color.Green,
+                        fontSize = 25.sp,
+                        lineHeight = 30.sp,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 25.dp)
+                    )
+                }
             }
         }
 

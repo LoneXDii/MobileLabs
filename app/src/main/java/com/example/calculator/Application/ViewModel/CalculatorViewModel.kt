@@ -5,6 +5,7 @@ import android.os.VibrationEffect
 import android.os.Vibrator
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModel
 import com.example.calculator.Domain.Entities.CalculatorAction
 import com.example.calculator.Domain.Entities.CalculatorConstants
@@ -17,9 +18,10 @@ import net.objecthunter.exp4j.function.Function
 import kotlin.math.ln
 
 class CalculatorViewModel(
-    private val vibrator: Vibrator
+    private val vibrator: Vibrator,
+    androidId: String
 ): ViewModel() {
-    private var firebase = FirebaseRepository()
+    private var firebase = FirebaseRepository(androidId)
 
     private var _state = mutableStateOf(CalculatorState())
     var state: CalculatorState
@@ -104,6 +106,7 @@ class CalculatorViewModel(
 
     private fun performCalculation() {
         val result = calculate() ?: return
+
 
         firebase.saveOperation(state.expression, result)
 

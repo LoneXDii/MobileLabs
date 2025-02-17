@@ -1,5 +1,6 @@
 package com.example.calculator.Presentation.Pages.Calculator
 
+import android.content.Context
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
