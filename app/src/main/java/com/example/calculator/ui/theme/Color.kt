@@ -14,21 +14,23 @@ var PurpleGrey40 = Color(0xFF625b71)
 var Pink40 = Color(0xFF7D5260)
 
 
+var DefaultDefaultTextColor = Color.White
+var DefaultSecondaryTextColor = Color.Green
+var DefaultScientificOperationsButtonColor = Color.Red
+var DefaultOperationButtonColor = Color(0xFFFF9800) //Orange
+var DefaultHelpActionButtonColor = Color(0xFF818181) //Light Gray
+var DefaultNumericButtonColor = Color.DarkGray
+var DefaultMainBackground = Color(0xFF2E2E2E) //MainBackground
+
 object Colors {
-    var DefaultTextColor by mutableStateOf(Color.White)
-    var SecondaryTextColor by mutableStateOf(Color.Green)
-    var ScientificOperationsButtonColor by mutableStateOf(Color.Red)
-    var OperationButtonColor by mutableStateOf(Color(0xFFFF9800)) // Orange
-    var HelpActionButtonColor by mutableStateOf(Color(0xFF818181)) // Light Gray
-    var NumericButtonColor by mutableStateOf(Color.DarkGray)
-    var MainBackground by mutableStateOf(Color(0xFF2E2E2E)) // MainBackground
+    var DefaultTextColor by mutableStateOf(DefaultDefaultTextColor)
+    var SecondaryTextColor by mutableStateOf(DefaultSecondaryTextColor)
+    var ScientificOperationsButtonColor by mutableStateOf(DefaultScientificOperationsButtonColor)
+    var OperationButtonColor by mutableStateOf(DefaultOperationButtonColor)
+    var HelpActionButtonColor by mutableStateOf(DefaultHelpActionButtonColor)
+    var NumericButtonColor by mutableStateOf(DefaultNumericButtonColor)
+    var MainBackground by mutableStateOf(DefaultMainBackground)
 }
 
-//var DefaultTextColor = Color.White
-//var SecondaryTextColor = Color.Green
-//var ScientificOperationsButtonColor = Color.Red
-//var OperationButtonColor = Color(0xFFFF9800) //Orange
-//var HelpActionButtonColor = Color(0xFF818181) //Light Gray
-//var NumericButtonColor = Color.DarkGray
-//var MainBackground = Color(0xFF2E2E2E) //MainBackground
+
 
