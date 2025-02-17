@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -69,7 +70,11 @@ fun CameraScreen(
             },
             modifier = Modifier
                 .align(Alignment.BottomCenter)
-                .padding(bottom = 32.dp)
+                .padding(bottom = 32.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor  = Colors.OperationButtonColor,
+                contentColor = Colors.DefaultTextColor
+            )
         ) {
             Text("Capture and Recognize")
         }

@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -109,7 +110,11 @@ fun CalculatorHistory(
             },
             modifier = Modifier
                 .align(Alignment.Start)
-                .padding(8.dp)
+                .padding(8.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor  = Colors.OperationButtonColor,
+                contentColor = Colors.DefaultTextColor
+            )
         ) {
             Text(text = "Clear")
         }

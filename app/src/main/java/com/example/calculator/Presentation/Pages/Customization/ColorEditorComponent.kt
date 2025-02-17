@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -58,7 +59,7 @@ fun ColorEditorComponent(
     if (showColorPicker) {
         AlertDialog(
             onDismissRequest = { showColorPicker = false },
-            title = { Text("Выберите цвет") },
+            title = { Text("Select color") },
             text = {
                 Column {
                     HsvColorPicker(
@@ -68,20 +69,32 @@ fun ColorEditorComponent(
                             .height(300.dp)
                     )
                     Spacer(modifier = Modifier.height(16.dp))
-                    Text("Выбранный цвет: ${colorPickerController.selectedColor.value}")
+                    Text("Selected color: ${colorPickerController.selectedColor.value}")
                 }
             },
             confirmButton = {
-                Button(onClick = {
-                    onColorChange(colorPickerController.selectedColor.value)
-                    showColorPicker = false
-                }) {
-                    Text("Применить")
+                Button(
+                    onClick = {
+                        onColorChange(colorPickerController.selectedColor.value)
+                        showColorPicker = false
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor  = Colors.OperationButtonColor,
+                        contentColor = Colors.DefaultTextColor
+                    )
+                ){
+                    Text("Accept")
                 }
             },
             dismissButton = {
-                Button(onClick = { showColorPicker = false }) {
-                    Text("Отмена")
+                Button(
+                    onClick = { showColorPicker = false },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor  = Colors.OperationButtonColor,
+                        contentColor = Colors.DefaultTextColor
+                    )
+                ) {
+                    Text("Cancel")
                 }
             }
         )
