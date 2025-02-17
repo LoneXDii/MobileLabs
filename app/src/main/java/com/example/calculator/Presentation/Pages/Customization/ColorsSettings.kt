@@ -33,7 +33,9 @@ import com.example.calculator.ui.theme.DefaultSecondaryTextColor
 @RequiresApi(Build.VERSION_CODES.O)
 @SuppressLint("HardwareIds")
 @Composable
-fun ColorsSettings() {
+fun ColorsSettings(
+    gridCell: Int = 3
+) {
     val context = LocalContext.current
     val androidId = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
     val firebase = FirebaseRepository(androidId)
@@ -50,7 +52,7 @@ fun ColorsSettings() {
 
     Column() {
         LazyVerticalGrid(
-            columns = GridCells.Fixed(3),
+            columns = GridCells.Fixed(gridCell),
             contentPadding = PaddingValues(8.dp),
             modifier = Modifier.fillMaxWidth()
         ) {

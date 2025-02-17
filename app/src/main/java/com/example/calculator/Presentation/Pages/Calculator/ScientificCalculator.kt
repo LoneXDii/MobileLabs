@@ -164,7 +164,7 @@ fun ScientificCalculator(
                 CalculatorHistory(onSetValue)
             }
             else if(isSettingOpen.value){
-                ColorsSettings()
+                ColorsSettings(7)
             }
             else{
                 ScientificCalculatorButtons(onAction, buttonSpacing)
