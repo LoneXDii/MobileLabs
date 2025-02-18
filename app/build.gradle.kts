@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.calculator"
-        minSdk = 24
+        minSdk = 27
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -41,7 +41,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -71,4 +70,5 @@ dependencies {
     implementation(libs.guava)
     implementation(libs.colorpicker.compose)
     implementation(libs.firebase.messaging)
+    implementation(libs.androidx.navigation.compose)
 }

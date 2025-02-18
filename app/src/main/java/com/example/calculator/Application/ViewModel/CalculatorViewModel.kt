@@ -106,7 +106,6 @@ class CalculatorViewModel(
     private fun performCalculation() {
         val result = calculate() ?: return
 
-
         firebase.saveOperation(state.expression, result)
 
         state = state.copy(
