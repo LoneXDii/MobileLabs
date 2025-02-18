@@ -18,6 +18,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.calculator.Application.ViewModel.CalculatorViewModel
 import com.example.calculator.Application.ViewModel.CalculatorViewModelFactory
+import com.example.calculator.Infrastructure.Services.BiometricPromptManager
 import com.example.calculator.Presentation.CalculatorApp
 import com.example.calculator.Presentation.Pages.Auth.FirstLaunchScreen
 import com.example.calculator.Presentation.Pages.Auth.LoginScreen
@@ -28,7 +29,8 @@ fun AppNavigation(
     navController: NavHostController,
     isFirstLaunch: Boolean,
     vibrator: Vibrator,
-    androidId: String
+    androidId: String,
+    biometricPromptManager: BiometricPromptManager
 ) {
     NavHost(navController = navController, startDestination = if (isFirstLaunch) "firstLaunch" else "login") {
         composable("firstLaunch") {
@@ -36,7 +38,7 @@ fun AppNavigation(
         }
 
         composable("login") {
-            LoginScreen(navController)
+            LoginScreen(navController, biometricPromptManager)
         }
 
         composable("main") {

@@ -1,5 +1,7 @@
 [versions]
 agp = "8.8.0"
+appcompat = "1.7.0"
+biometric = "1.1.0"
 cameraCore = "1.4.1"
 colorpickerCompose = "1.1.2"
 dagger = "2.46.1"
@@ -25,6 +27,8 @@ firebaseFirestore = "25.1.2"
 coreKtxVersion = "1.6.1"
 
 [libraries]
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+androidx-biometric = { module = "androidx.biometric:biometric", version.ref = "biometric" }
 androidx-camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "cameraCore" }
 androidx-camera-core = { module = "androidx.camera:camera-core", version.ref = "cameraCore" }
 androidx-camera-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = "cameraCore" }

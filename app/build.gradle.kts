@@ -71,4 +71,6 @@ dependencies {
     implementation(libs.colorpicker.compose)
     implementation(libs.firebase.messaging)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.biometric)
+    implementation(libs.androidx.appcompat)
 }

@@ -1,6 +1,7 @@
 package com.example.calculator.Presentation.Pages.Auth
 
 import android.content.Context
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -16,6 +17,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -27,14 +30,25 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.calculator.Infrastructure.Services.BiometricPromptManager
 import com.example.calculator.ui.theme.Colors
 
 @Composable
-fun LoginScreen(navController: NavController) {
+fun LoginScreen(navController: NavController, biometricPromptManager: BiometricPromptManager) {
     var password by remember { mutableStateOf("") }
     var errorMessage by remember { mutableStateOf<String?>(null) }
     val sharedPreferences = LocalContext.current.getSharedPreferences("AppPreferences", Context.MODE_PRIVATE)
     val savedPassword = sharedPreferences.getString("password", "")
+
+//    val biometricResult by biometricPromptManager.promptResults
+//        .collectAsState(initial = null)
+    var biometricResult by remember { mutableStateOf<BiometricPromptManager.BiometricResult?>(null) }
+
+    LaunchedEffect(Unit) {
+        biometricPromptManager.promptResults.collect { result ->
+            biometricResult = result
+        }
+    }
 
     Box(
         modifier = Modifier
@@ -86,6 +100,51 @@ fun LoginScreen(navController: NavController) {
                 }
             ) {
                 Text("Login")
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Button(
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Colors.OperationButtonColor,
+                    contentColor = Colors.DefaultTextColor
+                ),
+                onClick = {
+                    biometricPromptManager.showBiometricPrompt(
+                        title = "Prompt",
+                        description = "Description"
+                    )
+                }
+            ) {
+                Text("Biometric")
+            }
+
+            biometricResult?.let { result ->
+                errorMessage = when(result){
+                    is BiometricPromptManager.BiometricResult.AuthenticationError -> {
+                        "Authentication error: ${result.error}"
+                    }
+                    BiometricPromptManager.BiometricResult.AuthenticationFailed -> {
+                        "Authentication failed"
+                    }
+                    BiometricPromptManager.BiometricResult.AuthenticationNotSet -> {
+                        "Authentication not set"
+                    }
+                    BiometricPromptManager.BiometricResult.FeatureUnavailable -> {
+                        "Feature unavailable"
+                    }
+                    BiometricPromptManager.BiometricResult.HardwareUnavailable -> {
+                        "Hardware unavailable"
+                    }
+                    BiometricPromptManager.BiometricResult.AuthenticationSuccess -> {
+                        navController.navigate("main") {
+                            popUpTo("login") { inclusive = true }
+                        }
+
+                        biometricResult = null
+                        null
+                    }
+                }
             }
         }
     }

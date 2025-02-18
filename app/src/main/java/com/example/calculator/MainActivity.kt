@@ -6,18 +6,23 @@ import android.os.Build
 import android.os.Bundle
 import android.os.VibratorManager
 import android.provider.Settings
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.rememberNavController
+import com.example.calculator.Infrastructure.Services.BiometricPromptManager
 import com.example.calculator.ui.theme.CalculatorTheme
 import com.google.firebase.FirebaseApp
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
     private val sharedPreferences by lazy {
         getSharedPreferences("AppPreferences", MODE_PRIVATE)
+    }
+
+    private val promptManager by lazy {
+        BiometricPromptManager(this)
     }
 
     @SuppressLint("HardwareIds")
@@ -40,7 +45,7 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 val isFirstLaunch = sharedPreferences.getBoolean("isFirstLaunch", true)
 
-                AppNavigation(navController, isFirstLaunch, vibrator, androidId)
+                AppNavigation(navController, isFirstLaunch, vibrator, androidId, promptManager)
             }
         }
     }
