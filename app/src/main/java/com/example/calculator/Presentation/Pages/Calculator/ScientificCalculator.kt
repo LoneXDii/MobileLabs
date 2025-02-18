@@ -30,6 +30,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.calculator.Domain.Entities.CalculatorAction
 import com.example.calculator.Domain.Entities.CalculatorState
 import com.example.calculator.Presentation.Pages.Calculator.Components.ScientificCalculator.ScientificCalculatorButtons
@@ -46,7 +47,8 @@ fun ScientificCalculator(
     onAction: (CalculatorAction) -> Unit,
     onCameraButton: () -> Unit,
     onSetValue: (String) -> Unit,
-    isAuthorized: Boolean
+    isAuthorized: Boolean,
+    navController: NavController
 ) {
     val isHistoryOpen = remember { mutableStateOf(false) }
     val isSettingOpen = remember { mutableStateOf(false) }

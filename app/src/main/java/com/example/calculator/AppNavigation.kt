@@ -63,7 +63,8 @@ fun AppNavigation(
                     .fillMaxSize()
                     .background(Colors.MainBackground)
                     .padding(vertical = 16.dp, horizontal = 8.dp),
-                isAuthorized =  isAuthorized
+                isAuthorized =  isAuthorized,
+                navController = navController
             )
         }
     }

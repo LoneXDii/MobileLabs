@@ -12,6 +12,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.calculator.Application.ViewModel.CalculatorViewModel
 import com.example.calculator.Infrastructure.Persistence.FirebaseRepository
 import com.example.calculator.Presentation.Pages.Calculator.BaseCalculator
@@ -27,7 +28,8 @@ fun CalculatorApp(
     viewModel: CalculatorViewModel,
     modifier: Modifier = Modifier,
     buttonSpacing: Dp = 8.dp,
-    isAuthorized: Boolean
+    isAuthorized: Boolean,
+    navController: NavController
 ) {
     val context = LocalContext.current
     val androidId = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
@@ -52,7 +54,8 @@ fun CalculatorApp(
                 modifier = modifier,
                 onCameraButton = { viewModel.isCameraOpen = true },
                 onSetValue = { expr: String -> viewModel.setExpression(expr) },
-                isAuthorized = isAuthorized
+                isAuthorized = isAuthorized,
+                navController = navController
             )
         } else {
             ScientificCalculator(
@@ -62,7 +65,8 @@ fun CalculatorApp(
                 modifier = modifier,
                 onCameraButton = { viewModel.isCameraOpen = true },
                 onSetValue = { expr: String -> viewModel.setExpression(expr) },
-                isAuthorized = isAuthorized
+                isAuthorized = isAuthorized,
+                navController = navController
             )
         }
     }

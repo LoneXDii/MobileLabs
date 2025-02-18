@@ -12,9 +12,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Login
 import androidx.compose.material.icons.filled.Calculate
 import androidx.compose.material.icons.filled.Camera
 import androidx.compose.material.icons.filled.History
+import androidx.compose.material.icons.filled.Login
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -28,6 +30,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.calculator.Domain.Entities.CalculatorAction
 import com.example.calculator.Domain.Entities.CalculatorState
 import com.example.calculator.Presentation.Pages.Calculator.Components.BaseCalculator.BaseCalculatorButtons
@@ -45,7 +48,8 @@ fun BaseCalculator(
     onAction: (CalculatorAction) -> Unit,
     onCameraButton: () -> Unit,
     onSetValue: (String) -> Unit,
-    isAuthorized: Boolean
+    isAuthorized: Boolean,
+    navController: NavController
 ) {
     val isHistoryOpen = remember { mutableStateOf(false) }
     val isSettingOpen = remember { mutableStateOf(false) }
@@ -137,6 +141,24 @@ fun BaseCalculator(
                         )
                     }
 
+                    if (!isAuthorized) {
+                        IconButton(
+                            onClick = {
+                                navController.navigate("login") {
+                                    popUpTo("main/false") { inclusive = true }
+                                }
+                            },
+                        ) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Filled.Login,
+                                contentDescription = "Login",
+                                tint = Colors.DefaultTextColor,
+                                modifier = Modifier
+                                    .padding(2.dp)
+                                    .size(36.dp)
+                            )
+                        }
+                    }
                 }
             }
 
