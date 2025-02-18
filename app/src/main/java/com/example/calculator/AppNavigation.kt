@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Vibrator
 import android.os.VibratorManager
 import android.provider.Settings
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -41,7 +42,10 @@ fun AppNavigation(
             LoginScreen(navController, biometricPromptManager)
         }
 
-        composable("main") {
+        composable("main/{isAuthorized}") { backStackEntry ->
+            val parameter = backStackEntry.arguments?.getString("isAuthorized")
+            val isAuthorized = parameter == "true"
+
             val viewModel: CalculatorViewModel = viewModel(factory = CalculatorViewModelFactory(vibrator, androidId))
             val buttonSpacing = 8.dp
 
@@ -51,7 +55,8 @@ fun AppNavigation(
                 modifier = Modifier
                     .fillMaxSize()
                     .background(Colors.MainBackground)
-                    .padding(vertical = 16.dp, horizontal = 8.dp)
+                    .padding(vertical = 16.dp, horizontal = 8.dp),
+                isAuthorized =  isAuthorized
             )
         }
     }

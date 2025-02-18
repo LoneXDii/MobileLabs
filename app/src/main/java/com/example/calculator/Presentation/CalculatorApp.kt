@@ -26,7 +26,8 @@ import kotlinx.coroutines.withContext
 fun CalculatorApp(
     viewModel: CalculatorViewModel,
     modifier: Modifier = Modifier,
-    buttonSpacing: Dp = 8.dp
+    buttonSpacing: Dp = 8.dp,
+    isAuthorized: Boolean
 ) {
     val context = LocalContext.current
     val androidId = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
@@ -50,7 +51,8 @@ fun CalculatorApp(
                 buttonSpacing = buttonSpacing,
                 modifier = modifier,
                 onCameraButton = { viewModel.isCameraOpen = true },
-                onSetValue = { expr: String -> viewModel.setExpression(expr) }
+                onSetValue = { expr: String -> viewModel.setExpression(expr) },
+                isAuthorized = isAuthorized
             )
         } else {
             ScientificCalculator(
@@ -59,7 +61,8 @@ fun CalculatorApp(
                 buttonSpacing = buttonSpacing,
                 modifier = modifier,
                 onCameraButton = { viewModel.isCameraOpen = true },
-                onSetValue = { expr: String -> viewModel.setExpression(expr) }
+                onSetValue = { expr: String -> viewModel.setExpression(expr) },
+                isAuthorized = isAuthorized
             )
         }
     }

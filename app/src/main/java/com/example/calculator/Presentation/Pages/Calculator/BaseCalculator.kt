@@ -23,6 +23,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.Dp
@@ -43,7 +44,8 @@ fun BaseCalculator(
     buttonSpacing: Dp = 8.dp,
     onAction: (CalculatorAction) -> Unit,
     onCameraButton: () -> Unit,
-    onSetValue: (String) -> Unit
+    onSetValue: (String) -> Unit,
+    isAuthorized: Boolean
 ) {
     val isHistoryOpen = remember { mutableStateOf(false) }
     val isSettingOpen = remember { mutableStateOf(false) }
@@ -88,7 +90,8 @@ fun BaseCalculator(
                         onClick = {
                             isHistoryOpen.value = !isHistoryOpen.value
                             isSettingOpen.value = false
-                        }
+                        },
+                        enabled = isAuthorized
                     ) {
                         Icon(
                             imageVector = if (isHistoryOpen.value) Icons.Default.Calculate else Icons.Default.History,
@@ -97,11 +100,13 @@ fun BaseCalculator(
                             modifier = Modifier
                                 .padding(2.dp)
                                 .size(36.dp)
+                                .alpha(if (isAuthorized) 1f else 0.2f)
                         )
                     }
 
                     IconButton(
-                        onClick = onCameraButton
+                        onClick = onCameraButton,
+                        enabled = isAuthorized
                     ) {
                         Icon(
                             imageVector = Icons.Default.Camera,
@@ -110,6 +115,7 @@ fun BaseCalculator(
                             modifier = Modifier
                                 .padding(2.dp)
                                 .size(36.dp)
+                                .alpha(if (isAuthorized) 1f else 0.2f)
                         )
                     }
 
@@ -117,7 +123,8 @@ fun BaseCalculator(
                         onClick = {
                             isSettingOpen.value = !isSettingOpen.value
                             isHistoryOpen.value = false
-                        }
+                        },
+                        enabled = isAuthorized
                     ) {
                         Icon(
                             imageVector = if (isSettingOpen.value) Icons.Default.Calculate else Icons.Default.Settings,
@@ -126,6 +133,7 @@ fun BaseCalculator(
                             modifier = Modifier
                                 .padding(2.dp)
                                 .size(36.dp)
+                                .alpha(if (isAuthorized) 1f else 0.2f)
                         )
                     }
 

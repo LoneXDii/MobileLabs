@@ -2,7 +2,6 @@ package com.example.calculator.Presentation.Pages.Calculator
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -24,7 +23,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -33,7 +32,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.calculator.Domain.Entities.CalculatorAction
 import com.example.calculator.Domain.Entities.CalculatorState
-import com.example.calculator.Presentation.Pages.Calculator.Components.BaseCalculator.BaseCalculatorButtons
 import com.example.calculator.Presentation.Pages.Calculator.Components.ScientificCalculator.ScientificCalculatorButtons
 import com.example.calculator.Presentation.Pages.Customization.ColorsSettings
 import com.example.calculator.Presentation.Pages.History.CalculatorHistory
@@ -47,7 +45,8 @@ fun ScientificCalculator(
     buttonSpacing: Dp = 8.dp,
     onAction: (CalculatorAction) -> Unit,
     onCameraButton: () -> Unit,
-    onSetValue: (String) -> Unit
+    onSetValue: (String) -> Unit,
+    isAuthorized: Boolean
 ) {
     val isHistoryOpen = remember { mutableStateOf(false) }
     val isSettingOpen = remember { mutableStateOf(false) }
@@ -106,26 +105,32 @@ fun ScientificCalculator(
                         onClick = {
                             isHistoryOpen.value = !isHistoryOpen.value
                             isSettingOpen.value = false
-                        }
+                        },
+                        enabled = isAuthorized
                     ) {
                         Icon(
                             imageVector = if (isHistoryOpen.value) Icons.Default.Calculate else Icons.Default.History,
                             contentDescription = "History",
                             tint = Colors.DefaultTextColor,
-                            modifier = Modifier.padding(2.dp)
+                            modifier = Modifier
+                                .padding(2.dp)
                                 .size(25.dp)
+                                .alpha(if (isAuthorized) 1f else 0.2f)
                         )
                     }
 
                     IconButton(
-                        onClick = onCameraButton
+                        onClick = onCameraButton,
+                        enabled = isAuthorized
                     ) {
                         Icon(
                             imageVector = Icons.Default.Camera,
                             contentDescription = "Open Camera",
                             tint = Colors.DefaultTextColor,
-                            modifier = Modifier.padding(2.dp)
+                            modifier = Modifier
+                                .padding(2.dp)
                                 .size(25.dp)
+                                .alpha(if (isAuthorized) 1f else 0.2f)
                         )
                     }
 
@@ -133,7 +138,8 @@ fun ScientificCalculator(
                         onClick = {
                             isSettingOpen.value = !isSettingOpen.value
                             isHistoryOpen.value = false
-                        }
+                        },
+                        enabled = isAuthorized
                     ) {
                         Icon(
                             imageVector = if (isSettingOpen.value) Icons.Default.Calculate else Icons.Default.Settings,
@@ -142,6 +148,7 @@ fun ScientificCalculator(
                             modifier = Modifier
                                 .padding(2.dp)
                                 .size(25.dp)
+                                .alpha(if (isAuthorized) 1f else 0.2f)
                         )
                     }
 

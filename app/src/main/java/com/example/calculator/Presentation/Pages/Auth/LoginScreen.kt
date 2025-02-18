@@ -1,16 +1,18 @@
 package com.example.calculator.Presentation.Pages.Auth
 
 import android.content.Context
-import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -18,7 +20,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -28,7 +29,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.calculator.Infrastructure.Services.BiometricPromptManager
 import com.example.calculator.ui.theme.Colors
@@ -40,8 +45,6 @@ fun LoginScreen(navController: NavController, biometricPromptManager: BiometricP
     val sharedPreferences = LocalContext.current.getSharedPreferences("AppPreferences", Context.MODE_PRIVATE)
     val savedPassword = sharedPreferences.getString("password", "")
 
-//    val biometricResult by biometricPromptManager.promptResults
-//        .collectAsState(initial = null)
     var biometricResult by remember { mutableStateOf<BiometricPromptManager.BiometricResult?>(null) }
 
     LaunchedEffect(Unit) {
@@ -81,42 +84,70 @@ fun LoginScreen(navController: NavController, biometricPromptManager: BiometricP
                 )
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Button(
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Colors.OperationButtonColor,
-                    contentColor = Colors.DefaultTextColor
-                ),
-                onClick = {
-                    if (password == savedPassword) {
-                        errorMessage = null
-                        navController.navigate("main") {
-                            popUpTo("login") { inclusive = true }
-                        }
-                    } else {
-                        errorMessage = "Wrong password. Please try again."
-                    }
-                }
+            Row(
+                horizontalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp)
             ) {
-                Text("Login")
+                Button(
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Colors.OperationButtonColor,
+                        contentColor = Colors.DefaultTextColor
+                    ),
+                    onClick = {
+                        if (password == savedPassword) {
+                            errorMessage = null
+                            navController.navigate("main/true") {
+                                popUpTo("login") { inclusive = true }
+                            }
+                        } else {
+                            errorMessage = "Wrong password. Please try again."
+                        }
+                    },
+                    modifier = Modifier.width(130.dp)
+                ) {
+                    Text("Login")
+                }
+
+                Spacer(modifier = Modifier.width(16.dp))
+
+                Button(
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Colors.OperationButtonColor,
+                        contentColor = Colors.DefaultTextColor
+                    ),
+                    onClick = {
+                        biometricPromptManager.showBiometricPrompt(
+                            title = "Authenticate Your Identity",
+                            description = "Please use your fingerprint or face scan to securely access your account."
+                        )
+                    },
+                    modifier = Modifier.width(130.dp)
+                ) {
+                    Text("Biometric")
+                }
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
-
             Button(
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Colors.OperationButtonColor,
                     contentColor = Colors.DefaultTextColor
                 ),
                 onClick = {
-                    biometricPromptManager.showBiometricPrompt(
-                        title = "Prompt",
-                        description = "Description"
-                    )
-                }
+                    errorMessage = null
+                    navController.navigate("main/false") {
+                        popUpTo("login") { inclusive = true }
+                    }
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp)
             ) {
-                Text("Biometric")
+                Text(
+                    text = "Use without authentication\n(Some functions may be unavailable)",
+                    textAlign = TextAlign.Center,
+                )
             }
 
             biometricResult?.let { result ->
@@ -137,7 +168,7 @@ fun LoginScreen(navController: NavController, biometricPromptManager: BiometricP
                         "Hardware unavailable"
                     }
                     BiometricPromptManager.BiometricResult.AuthenticationSuccess -> {
-                        navController.navigate("main") {
+                        navController.navigate("main/true") {
                             popUpTo("login") { inclusive = true }
                         }
 

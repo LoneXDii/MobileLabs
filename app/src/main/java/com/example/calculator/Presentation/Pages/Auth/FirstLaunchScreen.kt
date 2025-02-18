@@ -67,7 +67,7 @@ fun FirstLaunchScreen(navController: NavController) {
                             putBoolean("isFirstLaunch", false)
                             apply()
                         }
-                        navController.navigate("main") {
+                        navController.navigate("main/true") {
                             popUpTo("firstLaunch") { inclusive = true }
                         }
                     }
