@@ -33,6 +33,13 @@ fun AppNavigation(
     androidId: String,
     biometricPromptManager: BiometricPromptManager
 ) {
+//    val sharedPreferences = LocalContext.current
+//        .getSharedPreferences("AppPreferences", Context.MODE_PRIVATE)
+//    sharedPreferences.edit().apply {
+//        putBoolean("isFirstLaunch", true)
+//        apply()
+//    }
+
     NavHost(navController = navController, startDestination = if (isFirstLaunch) "firstLaunch" else "login") {
         composable("firstLaunch") {
             FirstLaunchScreen(navController)
