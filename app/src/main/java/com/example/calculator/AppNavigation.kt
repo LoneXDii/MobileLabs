@@ -24,6 +24,7 @@ import com.example.calculator.Presentation.CalculatorApp
 import com.example.calculator.Presentation.Pages.Auth.ChangePasswordScreen
 import com.example.calculator.Presentation.Pages.Auth.FirstLaunchScreen
 import com.example.calculator.Presentation.Pages.Auth.LoginScreen
+import com.example.calculator.Presentation.Pages.Auth.RecoverPasswordScreen
 import com.example.calculator.ui.theme.Colors
 
 @Composable
@@ -52,6 +53,10 @@ fun AppNavigation(
 
         composable("changePassword") {
             ChangePasswordScreen(navController)
+        }
+
+        composable("forgotPassword") {
+            RecoverPasswordScreen(navController, biometricPromptManager)
         }
 
         composable("main/{isAuthorized}") { backStackEntry ->

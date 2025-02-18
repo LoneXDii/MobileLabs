@@ -1,7 +1,5 @@
 package com.example.calculator.Presentation.Pages.Calculator
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -38,7 +36,6 @@ import com.example.calculator.Presentation.Pages.Customization.ColorsSettings
 import com.example.calculator.Presentation.Pages.History.CalculatorHistory
 import com.example.calculator.ui.theme.Colors
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun BaseCalculator(
     state: CalculatorState,

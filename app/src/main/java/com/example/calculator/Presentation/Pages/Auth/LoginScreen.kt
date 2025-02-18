@@ -33,6 +33,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.calculator.Infrastructure.Services.BiometricPromptManager
 import com.example.calculator.ui.theme.Colors
@@ -130,26 +131,52 @@ fun LoginScreen(navController: NavController, biometricPromptManager: BiometricP
                 }
             }
 
-            Button(
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Colors.OperationButtonColor,
-                    contentColor = Colors.DefaultTextColor
-                ),
-                onClick = {
-                    errorMessage = null
-                    navController.navigate("main/false") {
-                        popUpTo("login") { inclusive = true }
-                    }
-                },
+            Row(
+                horizontalArrangement = Arrangement.Center,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 20.dp)
             ) {
-                Text(
-                    text = "Use without authentication\n(Some functions may be unavailable)",
-                    textAlign = TextAlign.Center,
-                )
+                Button(
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Colors.NumericButtonColor,
+                        contentColor = Colors.DefaultTextColor
+                    ),
+                    onClick = {
+                        errorMessage = null
+                        navController.navigate("main/false") {
+                            popUpTo("login") { inclusive = true }
+                        }
+                    },
+                    modifier = Modifier.width(130.dp)
+                ) {
+                    Text(
+                        text = "Unauthorized",
+                        fontSize = 10.sp
+                    )
+                }
+
+                Spacer(modifier = Modifier.width(16.dp))
+
+                Button(
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Colors.NumericButtonColor,
+                        contentColor = Colors.DefaultTextColor
+                    ),
+                    onClick = {
+                        errorMessage = null
+                        navController.navigate("forgotPassword") {
+                            popUpTo("login") { inclusive = false }
+                        }
+                    },
+                    modifier = Modifier.width(130.dp)
+                ) {
+                    Text(
+                        text = "Forgot password?",
+                        fontSize = 10.sp
+                    )
+                }
             }
+
 
             biometricResult?.let { result ->
                 errorMessage = when(result){
