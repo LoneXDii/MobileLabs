@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Login
+import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Calculate
 import androidx.compose.material.icons.filled.Camera
 import androidx.compose.material.icons.filled.History
@@ -162,6 +163,24 @@ fun ScientificCalculator(
                         ) {
                             Icon(
                                 imageVector = Icons.AutoMirrored.Filled.Login,
+                                contentDescription = "Login",
+                                tint = Colors.DefaultTextColor,
+                                modifier = Modifier
+                                    .padding(2.dp)
+                                    .size(36.dp)
+                            )
+                        }
+                    }
+                    else {
+                        IconButton(
+                            onClick = {
+                                navController.navigate("changePassword") {
+                                    popUpTo("main/false") { inclusive = true }
+                                }
+                            },
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.AccountBox,
                                 contentDescription = "Login",
                                 tint = Colors.DefaultTextColor,
                                 modifier = Modifier
