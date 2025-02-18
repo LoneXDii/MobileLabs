@@ -1,7 +1,5 @@
 package com.example.calculator.Presentation.Pages.Calculator
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -11,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Login
 import androidx.compose.material.icons.filled.Calculate
 import androidx.compose.material.icons.filled.Camera
 import androidx.compose.material.icons.filled.History
@@ -38,7 +37,6 @@ import com.example.calculator.Presentation.Pages.Customization.ColorsSettings
 import com.example.calculator.Presentation.Pages.History.CalculatorHistory
 import com.example.calculator.ui.theme.Colors
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun ScientificCalculator(
     state: CalculatorState,
@@ -152,6 +150,25 @@ fun ScientificCalculator(
                                 .size(25.dp)
                                 .alpha(if (isAuthorized) 1f else 0.2f)
                         )
+                    }
+
+                    if (!isAuthorized) {
+                        IconButton(
+                            onClick = {
+                                navController.navigate("login") {
+                                    popUpTo("main/false") { inclusive = true }
+                                }
+                            },
+                        ) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Filled.Login,
+                                contentDescription = "Login",
+                                tint = Colors.DefaultTextColor,
+                                modifier = Modifier
+                                    .padding(2.dp)
+                                    .size(36.dp)
+                            )
+                        }
                     }
 
                     Text(
